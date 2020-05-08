@@ -1,0 +1,17 @@
+:root {
+
+}
+
+*{
+	box-sizing: border-box;
+}
+
+li {
+	padding-left: none;
+	list-style: none;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
