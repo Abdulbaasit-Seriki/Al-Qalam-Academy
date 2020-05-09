@@ -149,7 +149,6 @@ nav a {
 	display: grid;
 	grid-template-columns: 1fr;
 	grid-gap: 30px;
-	background-color: var(--grey);
 	padding: 0.9rem;
 }
 
@@ -164,6 +163,11 @@ nav a {
 	box-shadow: 0px 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
 
+.offerings article img {
+  width: 100%;
+  padding: 0;
+}
+
 article h2 {
 	font-weight: 400;
 	font-size: 1.7rem;
@@ -173,4 +177,35 @@ article h2 {
 article p {
 	font-weight: 300;
 	line-height: 1.7rem;
+}
+
+footer {
+	background-color: var(--black);
+	color: var(--white);
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 20px;
+}
+
+footer article {
+	padding: 0.9rem;
+	display: flex;
+	flex-direction: column;
+}
+
+footer article a {
+	font-weight: 300;
+	color: var(--white);
+	text-decoration: none;
+	display: block;
+	margin: 0.2rem 0;
+}
+
+.social {
+	display: flex;
+	flex-direction: row;
+}
+
+.social a {
+	display: inline-block;
 }
