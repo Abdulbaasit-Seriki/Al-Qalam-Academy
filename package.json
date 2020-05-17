@@ -1,0 +1,26 @@
+{
+  "name": "al-qalam-academy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdulbaasit-Seriki/Al-Qalam-Academy.git"
+  },
+  "author": "Abdulbaasit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdulbaasit-Seriki/Al-Qalam-Academy/issues"
+  },
+  "homepage": "https://github.com/Abdulbaasit-Seriki/Al-Qalam-Academy#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

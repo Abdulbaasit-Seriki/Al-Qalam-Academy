@@ -1,3 +1,6 @@
+// const express = require('express');
+// const app = express();
+
 const http = require('http');
 const url = require('url');
 const fs = require('fs');
@@ -39,4 +42,5 @@ const server = http.createServer((req, res) => {
 });
 
 const port = process.env.PORT || 3000;
+// app.listen(port, () => console.log(`Server running on ${port}`));
 server.listen(port, () => console.log(`Server running on port ${port}`));
