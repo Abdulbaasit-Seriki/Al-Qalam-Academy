@@ -1,15 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 :root {
-	--black: #303032;
+	--orange: #F66D59;
+	--blue: #435599;
+	--light-blue: #ecedf0;
 	--white: #FFFFFF;
-	--orange: #F4BA0A;
-	--gray: #F4F4F4;
-	--gray-text: #636364;
-	--light-black: #262628;
-	--light-gray: #FAFAFA;
-	--grey: #F0F1F1;
-	--blue: #00A1DE;
-	--dark-orange: #F26622;
+	--subtle-white: #F9F9F9;
 }
 
 *{
@@ -17,9 +12,12 @@
 }
 
 body {
-  	margin: 0;
+	margin: 0;
 	font-family: 'Open Sans', sans-serif;
 	transition: all ease 0.5s;
+}
+img {
+	width: 100%;
 }
 
 ul {
@@ -147,36 +145,37 @@ video {
 	height: 50vh;
 }
 
-.vid-text {
-	padding: 0.9rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: end;
-	background: rgba(0, 0, 0, 0.5);
-	position: absolute; 
-	width: 100%;
-	height: 100%;
- 	bottom: 0; 
-	left: 0; 
-	color: var(--gray);
-}
-
-.vid-text h1 {
-	font-weight: 400;
-	font-size: 2.3rem;
-	margin-bottom: 0.1rem;
-}
-
 .vid-text p {
 	margin-top: 0.2rem;
 	font-weight: 300;
 }
 
-.header-text {
-	padding: 0.9rem;
-  display: flex;
+header {
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin-top: 1rem;
+	height: 80vh;
+}
+
+.header-text {
+	padding: 0.9rem;
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	align-items: center;
+}
+
+.header-text .desc h1 {
+  font-weight: 400;
+	font-size: 2.3rem;
+	margin-bottom: 0.1rem;	
+}
+
+header img {
+	width: 100%;
 }
 
 .header-text p {
@@ -187,11 +186,13 @@ video {
 .header-text button {
 	border: none;
 	background-color: var(--orange);
-	width: 12rem;
-	padding: 1rem;
-	font-size: .9rem;
+	width: 80%;
+	padding: 1rem 1.5rem;
+	font-size: 1.2rem;
 	font-weight: 400;
+	margin: 1rem;
 	transition: all ease 1.2s;
+	color: white;
 }
 
 .header-text button:hover {
@@ -226,14 +227,14 @@ video {
 }
 
 .miss-and-viss {
-	margin: 0.7rem;
-	display: grid;
-	grid-template-columns: 1fr;
+  margin: 0.9rem 0;
+	background-color: #F7F2F2;
+}
+
+.mission, .vision {
 	padding: 0.9rem;
-	font-weight: 400;
-	grid-gap: 20px;
-	border-radius: 3px;
-	box-shadow: 0 4px 4px 0 rgba(244, 186, 10, 0.5);
+	display: flex;
+	flex-direction: column;
 }
 
 .miss-and-viss article h2 {
@@ -245,15 +246,28 @@ video {
 .offerings {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-gap: 30px;
+	grid-gap: 15px;
 	padding: 0.9rem;
 }
 
+.offerings .reason {
+	font-weight: 400;
+	margin-bottom: 0;
+}
+
 .offerings article {
-	border-radius: 3px;
-	box-shadow: 0px 4px 4px 0 rgba(0, 0, 0, 0.4);
 	padding: 1rem;
-	transition: all ease 1.2s;
+}
+
+.offerings article h1 {
+	font-weight: 500;
+	font-size: 2rem;
+	margin: 0;
+	color: var(--orange);
+}
+
+.offerings article h2 {
+	margin: 0;
 }
 
 .offerings article:hover {
@@ -277,7 +291,7 @@ article p {
 }
 
 footer {
-	background-color: var(--black);
+	background-color: var(--orange);
 	color: var(--white);
 	display: grid;
 	grid-template-columns: 1fr;
