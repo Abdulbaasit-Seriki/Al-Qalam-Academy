@@ -53,31 +53,32 @@ body.show-nav {
 li a {
 	display: block;
 	text-decoration: none;
-	color: inherit;
 }
 
 .nav-item {
 	padding: 0.4rem 0;
-	font-weight: 400;
+	font-weight: 300;
 }
 
 
 #nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
 	cursor: pointer;
 	border-radius: 1px;
-	height: 2px;
+	height: 1px;
 	width: 33px;
-	background: var(--orange);
+	background: black;
 	position: absolute;
 	display: block;
 	content: '';
 	z-index: 100;
   }
   #nav-toggle span:before {
-	top: -10px;
+	top: -7px;
+		width: 30px;
   }
   #nav-toggle span:after {
-	bottom: -10px; 
+		width: 20px;
+	  bottom: -7px; 
   }
 
 #nav-toggle span {
@@ -121,6 +122,7 @@ li a {
 	border: none;
 	outline: none;
 	padding: 0;
+	font-weight: 300;
 }
 
 .dropdown:hover .dropdown-content {
@@ -359,6 +361,11 @@ footer article a {
 	.offerings {
 		grid-template-columns: 1fr 1fr;
 	}
+	
+	.offerings .reason {
+		grid-column: 1/-1;
+		text-align: center
+	}
    
 	footer {
 		grid-template-columns: 1fr 1fr;
@@ -371,10 +378,10 @@ footer article a {
 	
 	.navbar {
 		width: 100%;
-		position: fixed;
+		position: relative;
 		transform: translateX(0%);
-		height: 10vh;
-		background-color: transparent;
+		height: 5vh;
+		color: black;
 	}
 	
 	.nav-content {
@@ -398,15 +405,17 @@ li {
 	}
 	
 	.dropbtn {
-		font-size: 0.9rem;
+		font-size: 1rem;
 	  background-color: transparent;
 		border: none;
 		outline: none;
 		padding: 0;
 		cursor: pointer;
+		font-weight: 300;
   }
 	.dropbtn, .nav-item {
-		color: white;
+		color: black;
+		font-weight: 300;
 	}
 	
 	li {
@@ -417,7 +426,7 @@ li {
 		border-top: 0; 
 	}
 	
-  .navbar ul li:hover {
+  .dropbtn:hover, .nav-item:hover {
 		border-top: 2px solid var(--orange); 
 	}
 	
@@ -426,22 +435,33 @@ li {
 	   box-shadow: 0px 8px 16px 0 rgba(0, 0, 0, 0.4);
 	}
 	
-	.miss-and-viss {
-		grid-template-columns: 1fr 20px 1fr;
+	header {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		height: auto;
+		grid-gap: 20px;
+		text-align: start;
 	}
 	
-	hr {
-		font-weight: bolder;
-		font-size: 3rem;
-    transform: rotate(210deg);
-		height: 100%;
-		color: var(--orange);
-		padding: 0;
+	.miss-and-viss {
+		grid-template-columns: 1fr;
+		padding: 1rem;
+	}
+	
+	.mission, .vision {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 20px;
+	}
 }
 
 
 /* For Laptops */
 @media only screen and (min-width: 992px) {
+	body {
+		padding: 2rem;
+	}
+	
 	.offerings {
 		grid-template-columns: 1fr 1fr 1fr 1fr;
 	}
@@ -455,14 +475,4 @@ li {
 		grid-template-columns: 1fr 1fr;
 	}
 	
-	hr {
-		font-weight: bolder;
-		font-size: 3rem;
-		transform: rotateX(180deg)
-	}
-   
-   .header-text button {
-	   width: 18rem;
-   }
-}
 }
