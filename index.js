@@ -1,9 +1,13 @@
-document.querySelector( "#nav-toggle" ).addEventListener("click", event => {
+const harmburger = document.querySelector(".harmburger");
+const navContent = document.querySelector(".nav-content");
+const navItem = document.querySelectorAll(".nav-item");
 
-	document.querySelector("#nav-toggle").classList.toggle("active");
-	document.body.classList.toggle("show-nav");
-});
-
+harmburger.addEventListener("click", () => {
+	navContent.classList.toggle("open");
+	navItem.forEach( link => {
+		link.classList.toggle('fade');
+	})
+})
 // [...document.querySelectorAll(".dropdown-content")].forEach(drop => {
 // 	document.querySelector("")
 // })
