@@ -14,7 +14,6 @@
 body {
 	margin: 0;
 	font-family: 'Open Sans', sans-serif;
-	transition: all ease 0.5s;
 }
 img {
 	width: 100%;
@@ -102,7 +101,6 @@ ul {
 }
 
 	
-	
 .nav-item:hover {
 	border-top: 2px solid white; 
 }
@@ -152,11 +150,14 @@ ul {
 
 .dropbtn {
 	font-size: 0.9rem;
-	background-color: var(--white);
 	border: none;
 	outline: none;
 	padding: 0;
 	font-weight: 300;
+}
+
+li a {
+	text-decoration: none;
 }
 
 .dropdown:hover .dropdown-content {
@@ -415,10 +416,6 @@ footer article a {
 		color: inherit;
 	}
 	
-	.arabic {
-		
-	}
-	
 	.offerings {
 		grid-template-columns: 1fr 1fr;
 	}
@@ -450,7 +447,6 @@ footer article a {
 	.dropbtn, .nav-item {
 		color: black;
 		font-weight: 300;
-		transition: all ease 0.1s;
 	}
 	
 	
