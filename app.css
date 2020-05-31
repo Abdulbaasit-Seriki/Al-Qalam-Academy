@@ -305,6 +305,53 @@ article p {
 	line-height: 1.7rem;
 }
 
+.flipcards {
+	display: grid;
+	grid-template-columns: 1fr;
+	margin: 2rem 3rem 3rem 2rem;
+}
+
+.flipcard {
+	margin: 0;
+	background-color: transparent;
+	width: 100%;
+	height: 300px;
+	perspective: 1000px;
+}
+
+.flipcard-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	transition: transform 0.8s;
+	transform-style: preserve-3d;
+}
+
+.flipcard:hover .flipcard-inner {
+	transform: rotateY(180deg);
+}
+
+.flipcard-front, .flipcard-back {
+	position: absolute;
+	width: 100%;
+	height: 100%
+	-webkit-backface-visibilty: hidden;
+	backface-visibility: hidden;
+}
+
+.flipcard-front {
+	background-color: #bbb;
+	color: black;
+}
+
+.flipcard-back {
+	padding: 1rem;
+	background-color: var(--orange);
+	color: white;
+	transform: rotateY(180deg);
+}
+
 footer {
 	background-color: var(--orange);
 	color: var(--white);
@@ -478,6 +525,12 @@ footer article a {
 		grid-template-columns: 1fr 1fr;
 		grid-gap: 20px;
 	}
+
+	.flipcards {
+		display: grid;
+		grid-temp;grid-template-columns: 1fr 1fr;
+		grid-gap: 20px;
+	}
 }
 
 
@@ -503,4 +556,9 @@ footer article a {
 		grid-template-columns: 1fr 1fr;
 	}
 	
+	.flipcards {
+		display: grid;
+		grid-temp;grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-gap: 20px;
+	}
 }
