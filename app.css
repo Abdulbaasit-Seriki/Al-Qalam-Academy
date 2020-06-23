@@ -265,7 +265,7 @@ header img {
 	padding: 0.9rem;
 }
 
-.offerings .reason {
+.reason {
 	font-weight: 400;
 	margin-bottom: 0;
 }
@@ -551,7 +551,7 @@ footer article a {
 		grid-template-columns: 1fr 1fr;
 	}
 	
-	.offerings .reason {
+	.reason {
 		grid-column: 1/-1;
 		text-align: center
 	}
