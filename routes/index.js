@@ -12,5 +12,12 @@ router.get('/', (req, res) => {
 	})
 })
 
+// description     	Dashboard
+// route			GET /dashboard
+// Authorisation	Private
+router.get('/', (req, res) => {
+	res.render('dashboard')
+})
+
 
 module.exports = router
