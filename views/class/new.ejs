@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create A Class | Al-Qalam Academy</title>
+        <link href="/css/form.css" rel="stylesheet">
+  </head>
+   <body class="admin">   
+     <% if(error) { %>
+                <%= error.message %>
+      <% } %>
+    <form  id="form" class="form" method="POST" action="/create">
+      <h2>Register With Us</h2>
+  
+      <div class="form-control">
+        <label class="label">Name</label>
+        <input required class="input" id="name" placeholder="Name" name="name" />
+        <small>
+          <em>Error Message</em>
+        </small>
+      </div>
+      <div class="form-control">
+        <label class="label">Motto</label>
+        <input required class="input" placeholder="Motto" id="motto" name="motto" />
+        <small><em>Error Message</em></small>
+      </div>
+      <div class="form-control">
+        <label class="label">Subjects</label>
+        <textarea name="subjects" id="subjects" cols="30" rows="10">Subjects To Be Offered</textarea>
+        <small><em>Error Message</em></small>
+      </div>
+      <button>Submit</button>
+    </form>
+    <script src="/js/form.js"></script>
+  </body>
+</htm
