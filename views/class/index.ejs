@@ -1,8 +1,11 @@
 <%- include('../partials/header') -%>
 
-	<% classes.forEach( class => { %>
-		<h1><%= class.name %></h1>
-		<p><%= class.moto %></p>
+	<% classes.forEach( classOne => { %>
+		<h1><%= classOne.name %></h1>
+		<p><em><%= classOne.motto %></em></p>
+		<% classOne.subjects.forEach( subject => { %>
+			<p><%= subject %></p>
+		<% }) %>
 	<% }) %>
 
 <%- include('../partials/footer') -%>
