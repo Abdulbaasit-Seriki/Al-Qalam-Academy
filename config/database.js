@@ -16,7 +16,7 @@ const checkInternet = async () => {
 
 const connectToDB = async () => {
 	try {
-		let uri = process.env.NODE_ENV === 'development' && !checkInternet() 
+		let uri = process.env.NODE_ENV === 'development' && checkInternet() === false
 		? 'mongodb://localhost:27017/al-qalam' : process.env.MONGO_URI
 		
 		const connect = await mongoose.connect(uri, {
@@ -30,6 +30,9 @@ const connectToDB = async () => {
 	}
 	catch(err) {
 		console.error(err)
+		if (err.message === 'connection timed out' ) {
+			setTimeout(connectToDB(), 1000)	
+		}
 		process.exit(1) 
 	}
 }

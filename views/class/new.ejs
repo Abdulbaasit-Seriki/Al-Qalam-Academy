@@ -10,19 +10,19 @@
      <% if(error) { %>
                 <%= error.message %>
       <% } %>
-    <form  id="form" class="form" method="POST" action="/create">
+    <form  id="form" class="form" method="POST" action="/class/create">
       <h2>Register With Us</h2>
   
       <div class="form-control">
         <label class="label">Name</label>
-        <input required class="input" id="name" placeholder="Name" name="name" />
+        <input  class="input" id="name" placeholder="Name" name="name" />
         <small>
           <em>Error Message</em>
         </small>
       </div>
       <div class="form-control">
         <label class="label">Motto</label>
-        <input required class="input" placeholder="Motto" id="motto" name="motto" />
+        <input  class="input" placeholder="Motto" id="motto" name="motto" />
         <small><em>Error Message</em></small>
       </div>
       <div class="form-control">

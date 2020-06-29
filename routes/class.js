@@ -23,20 +23,19 @@ router.get('/', async (req, res) => {
 router.get('/create', (req, res) => {
 	res.render('class/new', { error: null })
 })
-
+ 
 // description     	Create a Class
-// route			POST /class/new
+// route			POST /class/create
 // Authorisation	Private
 router.post('/create', async (req, res) => {
-
-	console.log(req.body)
-	// try {
-	// 	const newClass = await Class.create(req.body)
-	// 	res.status(201).redirect('/')
-	// }
-	// catch(err) {
-	// 	return res.status(400).render('/class/new', { error: err })
-	// }
+	req.body.subjects = req.body.subjects.split(',')
+	try {
+		const newClass = await Class.create(req.body)
+		res.status(201).redirect('/class')
+	}
+	catch(err) {
+		return res.status(400).render('/class/new', { error: err })
+	}
 	
 })
 

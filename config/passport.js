@@ -1,7 +1,7 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const mongoose = require('mongoose')
 const passport = require('passport')
-const Teacher = require('../models/Student')
+const Class = require('../models/Class')
 
 module.exports = () => {
 	passport.use(new GoogleStrategy({

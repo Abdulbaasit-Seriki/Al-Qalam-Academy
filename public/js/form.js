@@ -1,9 +1,13 @@
 const elements = ["name", "motto", "subjects"]
 let selectedElements = []
 
+const form = document.querySelector("#form")
+let allowSubmission = false
+
 elements.forEach(element => {
 	selectedElements.push(document.getElementById(element))
 })
+
 
 // Functions
 
@@ -27,11 +31,14 @@ const checkRequired = inputTagArr => {
 	inputTagArr.forEach(input => {
 		if (input.value.trim() === "") {
 			showErrorMessage(input, `${getFieldName(input)} is required`);
+			return false
 		} else {
 			showSuccess(input);
+			return false 
 		}
 	});
 };
+
 
 // Checks if the passwords match
 const checkMatchingPasswords = (firstInput, secondInput) => {
@@ -45,18 +52,33 @@ const checkMatchingPasswords = (firstInput, secondInput) => {
 
 // Checks the legth of the input field
 const checkLength = (input, min, max) => {
-	if (input.value < min) {
+	if (input.value.length < min) {
 		showErrorMessage(input, `${getFieldName(input)}, must be at least ${min} characters`);
-	} else if (input.value > max) {
+		return false
+	} else if (input.value.length > max) {
 		showErrorMessage(input, `${getFieldName(input)}, must be less than ${max} characters`);
+		return false
 	} else {
-		showSuccess(input);
+		showSuccess(input); 
+		return true
 	}
 };
 
+const checkSubmission = () => {
+
+	if (!checkRequired([...selectedElements]) 
+		|| !checkLength(selectedElements[0], 4, 16) 
+		|| !checkLength(selectedElements[1], 6, 25)) {
+		return false
+	}
+	else {
+		allowSubmission = true
+		return true
+	}
+}
+
+
 form.addEventListener("submit", (event) => {
-	event.preventDefault();
-	checkRequired([...selectedElements]);
-	checkLength(selectedElements[0], 4, 16);
-	checkLength(selectedElements[1], 6, 25);
+	checkSubmission()
+	
 });
