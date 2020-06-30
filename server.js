@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const passport = require('passport')
 const session = require('express-session')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const connectToDB = require('./config/database')
 
@@ -23,6 +24,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Midddlewares
 app.use(express.static('public'))
+app.use(methodOverride('_method'))
 
 // EJS 
 app.set("view engine", "ejs")
