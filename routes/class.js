@@ -10,7 +10,6 @@ let error;
 router.get('/', async (req, res) => {
 	try {
 		const classes = await Class.find()
-		console.log(classes)
 		res.status(200).render('class/index', { classes })
 	}
 	catch(err) {
@@ -24,6 +23,7 @@ router.get('/', async (req, res) => {
 router.get('/:slug', async (req, res) => {
 	try {
 		const foundClass = await Class.find({ slug: req.params.slug });
+		console.log(foundClass)
 		res.status(200).render('class/class', { foundClass })
 	}
 	catch(err) {
@@ -33,7 +33,7 @@ router.get('/:slug', async (req, res) => {
 })
 
 // description     	Create a Class
-// route			GET /class/new
+// route			GET /class/create
 // Authorisation	Private
 router.get('/create', (req, res) => {
 	res.render('class/new', { error: null })
@@ -61,7 +61,9 @@ router.get('/:slug/update', async (req, res) => {
 
 	try {
 		const foundClass = await Class.find({ slug: req.params.slug })
+		console.log(foundClass)
 		res.status(200).render('class/update', { foundClass: foundClass, error: null})
+		// res.status(200).json({ data: foundClass })
 	}
 	catch(err) {
 		return res.status(404).redirect('back')

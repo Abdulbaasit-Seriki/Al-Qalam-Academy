@@ -6,23 +6,23 @@ const checkInternet = async () => {
 		return await dns.lookup('google.com')
 	}
 	catch(err) {
-		return false;
+		return false
 	}
-};
+}
 
  // return dns.lookup('google.com')
  //        .then(() => true)
  //        .catch(() => false);
 
-const connectToDB = async () => {
+const connectToDB = async () => { 
 	try {
-		let uri = process.env.NODE_ENV === 'development' && checkInternet() === false
+		let uri = process.env.NODE_ENV === 'development' && await checkInternet() === false
 		? 'mongodb://localhost:27017/al-qalam' : process.env.MONGO_URI
 		
 		const connect = await mongoose.connect(uri, {
 			useNewUrlParser: true,
 			useCreateIndex: true,
-			useFindAndModify: false,
+			useFindAndModify: false, 
 			useUnifiedTopology: true
 		})
 
@@ -37,4 +37,4 @@ const connectToDB = async () => {
 	}
 }
 
-module.exports = connectToDB;
+module.exports = connectToDB

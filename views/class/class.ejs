@@ -1,13 +1,8 @@
 <%- include('../partials/header') -%>
 
-	<% foundClass.forEach( classOne => { %>
-	<a href="/class/<%=classOne.slug%>/update">Update Class</a>
-		<h1><%= classOne.name %></h1>
-		<p><em><%= classOne.motto %></em></p>
-		<% classOne.subjects.forEach( subject => { %>
-			<p><%= subject %></p>
-		<% }) %>
-	<% }) %>
+	<a href="/class/<%=foundClass.slug%>/update">Update Class</a>
+		<h1><%= foundClass.name %></h1>
+		<p><em><%= foundClass.motto %></em></p>
 
 <%- include('../partials/footer') -%>
 
