@@ -1,96 +1,88 @@
 const express = require('express')
 const Class = require('../models/Class')
+const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
+const ErrorResponse = require('../middlewares/ErrorResponse')
 
 const router = express.Router()
-let error;
 
-// description     	Show All Classes
+// description     	Shows All Classes
 // route			GET /class
-// Authorisation	Public
-router.get('/', async (req, res) => {
-	try {
-		const classes = await Class.find()
-		res.status(200).render('class/index', { classes })
-	}
-	catch(err) {
-		return res.status(404).render('class/index', { error: err })
-	}
-})
+// Authorisation	No
+router.get('/', asyncErrorHandler( async (req, res, next) => {
+	const classes = await Class.find()
+	res.render('class/index', { classes })
+}))
 
-// description     	Show A Partiuclar Class
-// route			GET /class/:slug
-// Authorisation	Public
-router.get('/:slug', async (req, res) => {
-	try {
-		const foundClass = await Class.find({ slug: req.params.slug });
-		console.log(foundClass)
-		res.status(200).render('class/class', { foundClass })
-	}
-	catch(err) {
-		console.log(err)
-		return res.status(404).redirect('back')
-	}
-})
-
-// description     	Create a Class
+// description     	Create new Class
 // route			GET /class/create
-// Authorisation	Private
-router.get('/create', (req, res) => {
-	res.render('class/new', { error: null })
-})
+// Authorisation	Yes
+router.get('/create', asyncErrorHandler( async (req, res, next) => {
+	res.render('class/create')
+}))
  
-// description     	Create a Class
+
+// description     	Create new Class
 // route			POST /class/create
-// Authorisation	Private
-router.post('/create', async (req, res) => {
-	req.body.subjects = req.body.subjects.split(',')
-	try {
-		const newClass = await Class.create(req.body)
-		res.status(201).redirect('/class')
-	}
-	catch(err) {
-		return res.status(400).render('/class/new', { error: err })
-	}
-	
-})
+// Authorisation	Yes
+router.post('/create', asyncErrorHandler( async (req, res, next) => {
 
-// description     	Update a Class
-// route			GET /class/:slug/update
-// Authorisation	Private
-router.get('/:slug/update', async (req, res) => {
+	const newClass = await Class.create(req.body)
+	res.redirect('/class')
+ 
+})) 
 
-	try {
-		const foundClass = await Class.find({ slug: req.params.slug })
-		console.log(foundClass)
-		res.status(200).render('class/update', { foundClass: foundClass, error: null})
-		// res.status(200).json({ data: foundClass })
-	}
-	catch(err) {
-		return res.status(404).redirect('back')
-	}
-})
+// description     	Show A Class
+// route			GET /class/:slug
+// Authorisation	No
+router.get('/:slug', asyncErrorHandler( async (req, res, next) => {
+	const foundClass = await Class.find({ slug: req.params.slug })
 
-// description     	Update a Class
-// route			POST /class/:slug/update
-// Authorisation	Private
-router.put('/:slug/update', async (req, res) => {
-
-	try {
-		const foundClass = await Class.find({ slug: req.params.slug });
-		const param = foundClass._id
-		console.log(param)
-
-		const updatedClass = await Class.findByIdAndUpdate(param, req.body, {
-			new: true,
-			runValidator: true
+	if (foundClass.length === 0) {
+		return res.render('errorPage', {
+			msg: `Ooopps!!! Cannot Find Class ${req.params.slug}`,
+			statusCode: 404
 		})
+	}
+  
+	// if (!foundClass) {
+	// 	return next(new ErrorResponse(`Ooopps!!! Cannot Find Class`, 404).renderErrorPage(res))
+	// }
+	res.render('class/class', { foundClass })
 
-		res.status(200).redirect(`/class/${updatedClass.slug}`)
+})) 
+
+// description     	Edit Class
+// route			GET /class/:slug/edit
+// Authorisation	Yes
+router.get('/:slug/edit', asyncErrorHandler( async (req, res, next) => {
+	const foundClass = await Class.find({ slug: req.params.slug })
+
+	if (foundClass.length === 0) {
+		return next(new ErrorResponse(`Ooopps!!! Cannot Find Class`, 404).renderErrorPage(res))
 	}
-	catch(err) {
-		return res.status(404).redirect('back')
+
+	res.render('class/edit', { foundClass })
+}))
+
+// description     	Edit Class
+// route			PUT /class/:slug/edit
+// Authorisation	Yes
+router.put('/:slug/edit', asyncErrorHandler( async (req, res, next) => {
+	const foundClass = await Class.find({ slug: req.params.slug })
+
+	if (!foundClass) {
+		return next(new ErrorResponse(`Ooopps!!! Cannot Find Class`, 404).renderErrorPage(res))
 	}
-})
+
+	const classId = foundClass._id
+	await Class.findByIdAndUpdate(classId, req.body, {
+		new: true,
+		runValidator: true
+	})
+
+	res.redirect('/class')
+}))
+
 
 
 module.exports = router

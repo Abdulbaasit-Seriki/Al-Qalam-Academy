@@ -7,6 +7,8 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 const connectToDB = require('./config/database')
+const errorHandler = require('./middlewares/error.js');
+
 
 // Load Config files
 dotenv.config({ path: './config/config.env' })
@@ -25,6 +27,11 @@ if (process.env.NODE_ENV === 'development') {
 // Midddlewares
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
+app.use(errorHandler)
+
+// Body Parser 
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 
 // EJS 
 app.set("view engine", "ejs")
@@ -40,9 +47,6 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-// Body Parser Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 const indexRoutes = require('./routes/index')
@@ -53,6 +57,7 @@ const classRoute = require('./routes/class')
 app.use('/', indexRoutes)
 app.use('/auth', authRoute)
 app.use('/class', classRoute)
+
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`))

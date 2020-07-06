@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/css/form.css">
+	<title>Create A Class</title>
+</head>
+<body>
+	<div class="container">
+		<form  id="form" method="POST" action="/class/create" class="form">
+			<h2>Create A Class</h2>
+			<div class="form-control">
+				<label for="name">Class Name</label>
+				<input type="text" id="name"  name="name" placeholder="Name Of The Class">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="motto">Motto</label>
+				<input type="text" name="motto" id="motto" placeholder="Motto">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="Chemistry">
+					<input type="checkbox" value="Chemistry" name="subjects">
+					Chemistry
+				</label>
+				<label for="Biology">
+					<input type="checkbox" value="Biology" name="subjects">
+					Biology
+				</label>
+				<label for="Mathematics">
+					<input type="checkbox" value="Mathematics" name="subjects">
+					Mathematics
+				</label>
+				<label for="English Language">
+					<input type="checkbox" value="English Language" name="subjects">
+					English Language
+				</label>
+				<label for="Physics">
+					<input type="checkbox" value="Physics" name="subjects">
+					Physics
+				</label>
+			</div>
+			<button>Create</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="/js/form.js"></script>
+</body>
+</html>

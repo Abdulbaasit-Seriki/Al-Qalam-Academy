@@ -1,9 +1,4 @@
-<%- include('../partials/header') -%>
-
-	<% classes.forEach( classOne => { %>
-		<h1><a href="/class/<%=classOne.slug%>"><%= classOne.name %></a></h1>
-		<p><em><%= classOne.motto %></em></p>
-	<% }) %>
-
-<%- include('../partials/footer') -%>
-
+<% classes.forEach( foundClass => { %>
+	<h1><a href="/class/<%=foundClass.slug%>"><%=foundClass.name%></a></h1>
+	<p><%= foundClass.motto %></p>
+<% }) %>
