@@ -26,12 +26,19 @@ ClassSchema.pre("save", function(next){
 	next()
 })
 
+ClassSchema.pre('findOneAndUpdate', async function(next) {
+	const docToUpdate = await this.model.findOne(this.getQuery());
+  	console.log(this); // The document that `findOneAndUpdate()` will modify
+  	docToUpdate.slug = slugify(name.toLowerCase())
+  	next()
+});
+
 // // List all the students per class
 // ClassSchema.virtual('students', { 
 // 	ref: 'Student',
 // 	localField: '_id', 
 // 	foreignField: 'class',
-// 	justOne: false 
+// 	justOne: false
 // })
 
 module.exports = mongoose.model('Class', ClassSchema)

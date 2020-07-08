@@ -1,7 +1,5 @@
-<% foundClass.forEach( foundClass => { %>
-	<h1><%=foundClass.name%></h1>
-	<p><%= foundClass.motto %></p>
-	<% foundClass.subjects.forEach( subject => { %>
-		<p><%= subject %></p>
-	<% }) %>
+<h1><%=foundClass.name%></h1>
+<p><%= foundClass.motto %></p>
+<% foundClass.subjects.forEach( subject => { %>
+	<p><%= subject %></p>
 <% }) %>
