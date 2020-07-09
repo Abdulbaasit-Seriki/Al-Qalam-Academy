@@ -2,14 +2,22 @@ const express = require('express')
 const Class = require('../models/Class')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
+const studentsRouter = require('./student')
 
 const router = express.Router()
+   
+// Reroute any query that has the following URL to the specified router
+router.use('/:classSlug/students', studentsRouter)
 
 // description     	Shows All Classes
 // route			GET /class
 // Authorisation	No
 router.get('/', asyncErrorHandler( async (req, res, next) => {
-	const classes = await Class.find()
+	const classes = await Class.find().populate({
+		path: 'students',
+		select: 'admissionNumber, firstName, lastName'
+	}).lean()
+	
 	res.render('class/index', { classes })
 }))
 

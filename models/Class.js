@@ -19,27 +19,27 @@ const ClassSchema = new mongoose.Schema({
 }, {
 	toJSON: { virtuals: true },
 	toObject: { virtuals: true }
-})
+}) 
 
 ClassSchema.pre("save", function(next){
 	this.slug = slugify(this.name.toLowerCase())
 	next()
 })
 
-ClassSchema.pre('findOneAndUpdate', async function(next) {
-	const docToUpdate = await this.model.findOne(this.getQuery());
-  	console.log(this); // The document that `findOneAndUpdate()` will modify
-  	docToUpdate.slug = slugify(name.toLowerCase())
-  	next()
-});
+// ClassSchema.pre('findOneAndUpdate', async function(next) {
+// 	const docToUpdate = await this.model.findOne(this.getQuery());
+//   	console.log(this); // The document that `findOneAndUpdate()` will modify
+//   	// docToUpdate.slug = slugify(name.toLowerCase())
+//   	// next()
+// });
 
-// // List all the students per class
-// ClassSchema.virtual('students', { 
-// 	ref: 'Student',
-// 	localField: '_id', 
-// 	foreignField: 'class',
-// 	justOne: false
-// })
+// List all the students per class
+ClassSchema.virtual('students', { 
+	ref: 'Student',
+	localField: '_id', 
+	foreignField: 'class',
+	justOne: false
+})
 
 module.exports = mongoose.model('Class', ClassSchema)
 
