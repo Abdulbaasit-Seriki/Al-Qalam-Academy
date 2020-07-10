@@ -3,8 +3,9 @@ const mpngoose = require('mongoose')
 const StudentSchema = new mongoose.Schema({
 	admissionNumber: {
 		required: true,
+		unique: true,
 		type: Number
-	}
+	},
 	firstName: {
 		required: true,
 		type: String
@@ -20,9 +21,13 @@ const StudentSchema = new mongoose.Schema({
 	DOB: {
 		required: true,
 		type: Date
+	},
+	gender:{
+		type: String,
+		enum: ['Male', 'Female', 'Binary']
 	}
 	address: String,
-	class: {
+	className: {
     type: mongoose.Schema.ObjectId,
     ref: 'Class',
     required: true

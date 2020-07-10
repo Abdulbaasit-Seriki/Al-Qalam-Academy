@@ -52,11 +52,13 @@ app.use(passport.session())
 const indexRoutes = require('./routes/index')
 const authRoute = require('./routes/auth')
 const classRoute = require('./routes/class')
+const studentsRoute = require('./routes/student')
 
 // Mount Routers
 app.use('/', indexRoutes)
 app.use('/auth', authRoute)
 app.use('/class', classRoute)
+app.use('/students', studentsRoute)
 
 
 const port = process.env.PORT || 3000
