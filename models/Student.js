@@ -1,4 +1,4 @@
-const mpngoose = require('mongoose')
+const mongoose = require('mongoose')
 
 const StudentSchema = new mongoose.Schema({
 	admissionNumber: {
@@ -25,7 +25,8 @@ const StudentSchema = new mongoose.Schema({
 	gender:{
 		type: String,
 		enum: ['Male', 'Female', 'Binary']
-	}
+	},
+	password: String,
 	address: String,
 	className: {
     type: mongoose.Schema.ObjectId,

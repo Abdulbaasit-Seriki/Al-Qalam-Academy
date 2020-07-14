@@ -18,8 +18,8 @@ router.get('/', asyncErrorHandler( async (req, res, next) => {
 		if (!foundClass) {
 			return next(new ErrorResponse(`Oooops!! ${req.params.classSlug} Not Found`, 404).renderErrorPage(res))
 		}
-
-		query = Student.find({ class: foundClass._id )}
+ 
+		query = Student.find({ className: foundClass._id })
 	}
 	else {
 		query = Student.find().populate({
@@ -40,9 +40,38 @@ router.get('/:admissionNum', asyncErrorHandler( async (req, res, next) => {
 		path: 'className',
 		select: 'name motto'
 	}).lean()
+	console.log(student)
 	res.render('students/student', { student })
 }))
 
+// description     	Edit A Student
+// route 			GET /:admissionNum/edit
+// Authorisation	Yes
+router.get('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
+	const student = await Student.findOne({ admissionNumber: req.params.admissionNum })
+
+	if (!student) {
+		return next(new ErrorResponse(`Sorry!!! The Student with Admission Number ${req.params.admissionNum} cannot be found`, 404)
+			.renderErrorPage(res))
+	}
+
+	res.render('students/edit', { student })
+}))
+
+// description     	Edit A Student
+// route 			PUT /:admissionNum/edit
+// Authorisation	Yes
+router.get('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
+	const { className } = req.body
+	const foundClass = await Class.findOne({ name: className })
+	if (!foundClass) {
+		return next(new ErrorResponse(`${className} Not Found`, 404).renderErrorPage(res))
+	}
+	req.body.className = foundClass._id
+
+	const student = await Student.findOneAndUpdate({ admissionNumber: req.params.admissionNum }, req.body)
+	res.redirect(`/students/${student.admissionNumber}`)
+}))
 
 module.exports = router
    

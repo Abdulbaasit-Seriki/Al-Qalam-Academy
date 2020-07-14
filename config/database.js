@@ -29,7 +29,7 @@ const connectToDB = async () => {
 		console.log(`MongoDB connected: ${connect.connection.host}`)
 	}
 	catch(err) {
-		console.error(err)
+		console.error(err) 
 		if (err.message === 'connection timed out' ) {
 			setTimeout(connectToDB(), 1000)	
 		}

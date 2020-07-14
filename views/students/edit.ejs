@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/css/form.css">
+	<title>Edit <%= student.firstName %></title>
+</head>
+<body>
+	<div class="container">
+		<form  id="form" action="/auth/students/signup" method="POST" class="form">
+			<h2>Register With Us</h2>
+			<div class="form-control">
+				<label for="firstname">First Name</label>
+				<input type="text" name="firstName" id="firstname" value="<%=student.firstName%>">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="middlename">Middle Name</label>
+				<input type="text" name="middleName" id="middlename" value="<%=student.middleName%>">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="lastname">Last Name</label>
+				<input type="text" name="lastName" id="lastname" value="<%=student.lastName%>">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="admissionnumber">Admission Number</label>
+				<input type="text" name="admissionNumber" id="admissionNumber" value="<%=student.admissionNumber%>">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="password">Password</label>
+				<input type="password" id="password" placeholder="Password">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="password2">Confirm Password</label>
+				<input type="password" id="password2" placeholder="Confirm Password">
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="gender">Gender</label>
+				<select name="gender" id="gender">
+					<option value="Male">Male</option>
+					<option value="Female">Female</option>
+					<option value="Binary">Binary</option>
+				</select>
+				<small><em>Error Message</em></small>
+			</div>
+			<div class="form-control">
+				<label for="classname">Class</label>
+				<select name="className" id="classname">
+					<option value="Primary 1">Primary 1</option>
+					<option value="Primary 2">Primary 2</option>
+					<option value="Primary 3">Primary 3</option>
+					<option value="Primary 4">Primary 4</option>
+					<option value="Primary 5">Primary 5</option>
+					<option value="JSS 1">JSS 1</option>
+					<option value="JSS 2">JSS 2</option>
+					<option value="JSS 3">JSS 3</option>
+					<option value="SS 1">SS 1</option>
+					<option value="SS 2">SS 2</option>
+					<option value="SS 1">SS 3</option>
+				</select>
+				<% const options = document.querySelectorAll("#classname option") %>
+				<% options.forEach( option => { %>
+					<% if(student.className === option.value) { %>
+							<% option.selected = true %>	
+					<% } else { %>
+							<% option.selected = false %>	
+					<% } %>
+				<% }) %>
+				<small><em>Error Message</em></small>
+			</div>
+			<button>Submit</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="/js/form.js"></script>
+</body>
+</html>
