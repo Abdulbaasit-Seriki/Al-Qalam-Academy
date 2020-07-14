@@ -45,7 +45,7 @@ router.get('/:admissionNum', asyncErrorHandler( async (req, res, next) => {
 }))
 
 // description     	Edit A Student
-// route 			GET /:admissionNum/edit
+// route 			GET /students/:admissionNum/edit
 // Authorisation	Yes
 router.get('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
 	const student = await Student.findOne({ admissionNumber: req.params.admissionNum })
@@ -59,9 +59,9 @@ router.get('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
 }))
 
 // description     	Edit A Student
-// route 			PUT /:admissionNum/edit
+// route 			PUT /students/:admissionNum/edit
 // Authorisation	Yes
-router.get('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
+router.put('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
 	const { className } = req.body
 	const foundClass = await Class.findOne({ name: className })
 	if (!foundClass) {
@@ -69,8 +69,26 @@ router.get('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
 	}
 	req.body.className = foundClass._id
 
-	const student = await Student.findOneAndUpdate({ admissionNumber: req.params.admissionNum }, req.body)
+	const student = await Student.findOneAndUpdate({ admissionNumber: req.params.admissionNum }, req.body, {
+		new: true,
+		runValidator: true
+	})
 	res.redirect(`/students/${student.admissionNumber}`)
+}))
+
+
+// description     	Delete A Student
+// route 			DELETE /:admissionNum/delete
+// Authorisation	Yes
+router.delete('/:admissionNum/delete', asyncErrorHandler( async(req, res, next) => {
+	const student = await Student.findOne({ admissionNumber: req.params.admissionNum })
+
+	if (!student) {
+		return next(new ErrorResponse(`Student ${req.params.admissionNum} cannot be found`, 404).renderErrorPage(res))
+	}
+
+	await Student.remove()
+	res.redirect('/students')
 }))
 
 module.exports = router

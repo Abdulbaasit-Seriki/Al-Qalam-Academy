@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div class="container">
-		<form  id="form" action="/auth/students/signup" method="POST" class="form">
+		<form  id="form" action="/students/<%=student.admissionNumber%>/edit?_method=PUT" method="POST" class="form">
 			<h2>Register With Us</h2>
 			<div class="form-control">
 				<label for="firstname">First Name</label>
@@ -63,14 +63,6 @@
 					<option value="SS 2">SS 2</option>
 					<option value="SS 1">SS 3</option>
 				</select>
-				<% const options = document.querySelectorAll("#classname option") %>
-				<% options.forEach( option => { %>
-					<% if(student.className === option.value) { %>
-							<% option.selected = true %>	
-					<% } else { %>
-							<% option.selected = false %>	
-					<% } %>
-				<% }) %>
 				<small><em>Error Message</em></small>
 			</div>
 			<button>Submit</button>
