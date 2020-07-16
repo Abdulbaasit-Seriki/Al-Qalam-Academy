@@ -6,18 +6,31 @@
 	<title>Create A Class</title>
 </head>
 <body>
+	
+<% const getErrors = (errors, property) => { %>
+    <% try { %>
+      <% return errors.mapped()[property].msg %>
+    <% } catch(err) { %>
+        <% return ''; %>
+      <% } %>
+<% } %>
+
 	<div class="container">
 		<form  id="form" method="POST" action="/class/create" class="form">
 			<h2>Create A Class</h2>
 			<div class="form-control">
 				<label for="name">Class Name</label>
 				<input type="text" id="name"  name="name" placeholder="Name Of The Class">
-				<small><em>Error Message</em></small>
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"<em><%= getErrors(errors, 'className') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="motto">Motto</label>
 				<input type="text" name="motto" id="motto" placeholder="Motto">
-				<small><em>Error Message</em></small>
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"<em><%= getErrors(errors, 'motto') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="Chemistry">

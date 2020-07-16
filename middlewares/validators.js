@@ -19,7 +19,7 @@ module.exports = {
                             throw new Error(`This Email Has been Picked, Kindly Enter Another One`)
                         }
                     }),
-    valiadateClassName: check('className')
+    validateClassName: check('className')
                     .trim()
                     .isLength({ min: 1, max: 20 })
                     .withMessage(`Name Must Be Between 1 and 20 characters`),
@@ -40,12 +40,12 @@ module.exports = {
                             throw new Error(`Passwords Must Match`)
                         }
                     }),
-    handleValiadtionErrors (templatePath) {
+    handleValidationErrors (templatePath) {
         return (req, res, next) => {
             const errors = validationResult(req)
 
-            if (!errors.empty) {
-                return ErrorResponse.redirect(res, templatePath, errors)
+            if (!errors.isEmpty()) {
+                return res.render(templatePath, { errors })
             }
             
             next()

@@ -3,6 +3,7 @@ const Class = require('../models/Class')
 const Student = require('../models/Student')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
+const { validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword} = require('../middlewares/validators')
 
 const router = express.Router()
 
@@ -61,7 +62,7 @@ router.get('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
 // description     	Edit A Student
 // route 			PUT /students/:admissionNum/edit
 // Authorisation	Yes
-router.put('/:admissionNum/edit', asyncErrorHandler( async (req, res, next) => {
+router.put('/:admissionNum/edit', [validatePassword, confirmPassword], asyncErrorHandler( async (req, res, next) => {
 	const { className } = req.body
 	const foundClass = await Class.findOne({ name: className })
 	if (!foundClass) {

@@ -1,9 +1,10 @@
 const express = require('express')
 const passport = require('passport')
-const Class = require('../models/Class')
+const Teacher = require('../models/Teacher')
 const Student = require('../models/Student')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
+const { validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword} = require('../middlewares/validators')
 
 const router = express.Router()
 
@@ -38,7 +39,10 @@ router.get('/student/signup', asyncErrorHandler( async (req, res, next) => {
 // description     	Create A Student
 // route			POST /auth/student/signup
 // Authorisation	Public
-router.post('/student/signup', asyncErrorHandler( async (req, res, next) => {
+router.post('/student/signup', 
+	[validatePassword, confirmPassword], 
+	handleValidationErrors('auth/student/signup'), 
+	asyncErrorHandler( async (req, res, next) => {
 	const { className } = req.body
 	const foundClass = await Class.findOne({ name: className })
 
@@ -51,4 +55,10 @@ router.post('/student/signup', asyncErrorHandler( async (req, res, next) => {
 	res.redirect(`/students/${student.admissionNumber}`)
 }))
 
+// description     	Register User
+// route			POST /auth/user/signup
+// Authorisation	Public
+router.get('/user/signup', asyncErrorHandler(async (req, res, next) => {
+	res.render('auth/users/signup')
+}))
 module.exports = router

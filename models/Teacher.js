@@ -19,6 +19,10 @@ const TeacherSchema = new mongoose.Schema({
       image: {
         type: String,
       },
+      gender: {
+        type: String,
+        enum: ['Male', 'Female']
+      },
       emailAddress: {
           type: String,
           unique: true,
@@ -37,6 +41,8 @@ const TeacherSchema = new mongoose.Schema({
         minlength: 6,
         select: false
       },
+      resetPasswordToken: Date,
+      resetPasswordExpiration: Date,
       createdAt: {
         type: Date,
         default: Date.now,
