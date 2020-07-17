@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const TeacherSchema = new mongoose.Schema({
     googleId: {
@@ -48,5 +50,19 @@ const TeacherSchema = new mongoose.Schema({
         default: Date.now,
       },
 })
+
+// Encrypt Password
+TeacherSchema.pre('save', async function (next) {
+	const salt = await bcrypt.genSalt(10)
+	this.password = bcrypt.hash(this.password, salt)
+	next()
+})
+
+// Assign JWT
+TeacherSchema.methods.assignJWT = function () {
+	return jwt.sign({ id: this_id }, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRY_DATE
+	})
+}
 
 module.exports = mongoose.model('Teacher', TeacherSchema)

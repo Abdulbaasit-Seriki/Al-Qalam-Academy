@@ -3,18 +3,24 @@ const Teacher = require('../models/Teacher')
 const ErrorResponse = require('./ErrorResponse')
 
 module.exports = {
-    validateName (nameParam) {
-        check(nameParam)
+    validateDisplayName :
+        check('displayName')
         .trim()
-        .withMessage(`Please Enter Your Name`)
-    },
-    validateEmail: check('email')
+        .isLength({ min: 3, max: 15 })
+        .withMessage(`Please Enter Your Username`)
+        .custom( async displayName => {
+            const teacher = await Teacher.findOne({ displayName })
+            if (teacher) {
+                throw new Error(`This Username Has been Selected, Kindly Pick Another`)
+            }
+        }),
+    validateEmail: check('emailAddress')
                     .trim()
                     .normalizeEmail()
                     .isEmail()
                     .withMessage(`Please add a Valid Email`)
-                    .custom( async email => {
-                        const teacher = await Teacher.findOne({ emailAddress: email })
+                    .custom( async emailAddress => {
+                        const teacher = await Teacher.findOne({ emailAddress })
                         if(teacher) {
                             throw new Error(`This Email Has been Picked, Kindly Enter Another One`)
                         }

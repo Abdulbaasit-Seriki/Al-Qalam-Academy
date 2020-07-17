@@ -3,11 +3,18 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="/css/form.css">
-	<title>Students - Signup</title>
+	<title>Create An Account</title>
 </head>
 <body>
+	<% const getErrors = (errors, property) => { %>
+		<% try { %>
+		  <% return errors.mapped()[property].msg %>
+		<% } catch(err) { %>
+			<% return ''; %>
+		  <% } %>
+	<% } %>
 	<div class="container">
-		<form  id="form" action="/auth/students/signup" method="POST" class="form">
+		<form  id="form" action="/auth/teachers/signup" method="POST" class="form">
 			<h2>Register With Us</h2>
 			<div class="form-control">
 				<label for="firstname">First Name</label>
@@ -22,22 +29,30 @@
             <div class="form-control">
 				<label for="middlename">Username</label>
 				<input type="text" name="displayName" id="displayname" placeholder="Username">
-				<small><em>Error Message</em></small>
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'displayName') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
-				<label for="admissionnumber">Email Address</label>
-				<input type="email" name="emailAddress" id="emailaddress" placeholder="emailaddress">
-				<small><em>Error Message</em></small>
+				<label for="emailAddress">Email Address</label>
+				<input type="email" name="emailAddress" id="emailaddress" placeholder="Email Address">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'emailAddress') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="password">Password</label>
-				<input type="password" id="password" placeholder="Password">
-				<small><em>Error Message</em></small>
+				<input type="password" id="password" name="password" placeholder="Password">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'password') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="password2">Confirm Password</label>
-				<input type="password" id="password2" placeholder="Confirm Password">
-				<small><em>Error Message</em></small>
+				<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'confirmPassword') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="gender">Gender</label>
@@ -50,9 +65,9 @@
 			</div>
 			<div class="form-control">
 				<label for="role">Role</label>
-				<select name="gender" id="gender">
-					<option value="Teacher">Teacher</option>
-					<option value="Parent">Parent</option>
+				<select name="role" id="role">
+					<option value="classTeacher">Class Teacher</option>
+					<option value="subjectTeacher">Subject Teacher</option>
 				</select>
 				<small><em>Error Message</em></small>
 			</div>

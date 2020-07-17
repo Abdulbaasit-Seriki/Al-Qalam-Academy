@@ -4,7 +4,7 @@ const Teacher = require('../models/Teacher')
 const Student = require('../models/Student')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
-const { validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword} = require('../middlewares/validators')
+const { validateDisplayName,validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail} = require('../middlewares/validators')
 
 const router = express.Router()
 
@@ -58,7 +58,21 @@ router.post('/student/signup',
 // description     	Register User
 // route			POST /auth/user/signup
 // Authorisation	Public
-router.get('/user/signup', asyncErrorHandler(async (req, res, next) => {
-	res.render('auth/users/signup')
+router.get('/teachers/signup', asyncErrorHandler(async (req, res, next) => {
+	res.render('auth/users/signup', {errors: null})
+}))
+
+router.post('/teachers/signup',
+ [validateDisplayName, validateEmail, validatePassword, confirmPassword],
+ handleValidationErrors('auth/users/signup'),
+ asyncErrorHandler( async (req, res, next) => {
+	const { firstName, lastName, displayName, emailAddress, password, gender, role } = req.body
+
+	const teacher = await Teacher.create(
+		firstName, lastName, displayName, emailAddress, password, gender, role
+	)
+	const token = teacher.assignJWT()
+	console.log(token)
+	res.redirect(`/teachers/${teacher.id}`)
 }))
 module.exports = router

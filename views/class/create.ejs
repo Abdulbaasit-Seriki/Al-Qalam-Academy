@@ -22,14 +22,14 @@
 				<label for="name">Class Name</label>
 				<input type="text" id="name"  name="name" placeholder="Name Of The Class">
 				<% if(errors) { %>
-					<small style="visibility: visible; color: red;"<em><%= getErrors(errors, 'className') %></em></small>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'className') %></em></small>
 				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="motto">Motto</label>
 				<input type="text" name="motto" id="motto" placeholder="Motto">
 				<% if(errors) { %>
-					<small style="visibility: visible; color: red;"<em><%= getErrors(errors, 'motto') %></em></small>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'motto') %></em></small>
 				<% } %>
 			</div>
 			<div class="form-control">
