@@ -4,7 +4,8 @@ const Teacher = require('../models/Teacher')
 const Student = require('../models/Student')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
-const { validateDisplayName,validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail} = require('../middlewares/validators')
+const { validateDisplayName,validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence} = require('../middlewares/validators')
+const { sendCookieToken,  protectRoute, authorize} = require('../middlewares/auth')
 
 const router = express.Router()
 
@@ -18,7 +19,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
 // Authorisation	Private
 router.get('/google/callback', passport.authenticate('google', {
 	failureRedirect: '/login'
-}), (req, res) => {
+}), (req, res) => {   
 	res.redirect('/dashboard')
 })
 
@@ -63,7 +64,7 @@ router.get('/teachers/signup', asyncErrorHandler(async (req, res, next) => {
 }))
 
 router.post('/teachers/signup',
- [validateDisplayName, validateEmail, validatePassword, confirmPassword],
+ [validateDisplayName, validateEmail, validatePassword],
  handleValidationErrors('auth/users/signup'),
  asyncErrorHandler( async (req, res, next) => {
 	const { firstName, lastName, displayName, emailAddress, password, gender, role } = req.body
@@ -75,4 +76,18 @@ router.post('/teachers/signup',
 	console.log(token)
 	res.redirect(`/teachers/${teacher.id}`)
 }))
+
+// description     	Login A Teacher
+// route			POST /auth/teacher/login
+// Authorisation	Public
+router.post('/teachers/login', [checkUserExistence], asyncErrorHandler( async (req, res, next) => {
+	const token = teacher.assignJWT()
+	console.log(token)
+	res.redirect(`/teachers/${teacher.id}`)
+}))
+
+router.get('/teachers/me', protectRoute, asyncErrorHandler( async (req, res, next) => {
+	const user = Teacher.findById(req.user.id)
+}))
+
 module.exports = router

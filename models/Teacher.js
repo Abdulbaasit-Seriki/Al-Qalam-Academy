@@ -58,11 +58,16 @@ TeacherSchema.pre('save', async function (next) {
 	next()
 })
 
-// Assign JWT
+// Assign JWT 
 TeacherSchema.methods.assignJWT = function () {
 	return jwt.sign({ id: this_id }, process.env.JWT_SECRET, {
 		expiresIn: process.env.JWT_EXPIRY_DATE
 	})
+}
+
+// Match User Credentilas and Password
+TeacherSchema.methods.comparePasswords = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password)
 }
 
 module.exports = mongoose.model('Teacher', TeacherSchema)

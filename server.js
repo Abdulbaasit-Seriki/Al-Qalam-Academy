@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const passport = require('passport')
 const session = require('express-session')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const methodOverride = require('method-override')
 
 const connectToDB = require('./config/database')
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 app.use(errorHandler)
+app.use(cookieParser)
 
 // Body Parser 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -54,7 +56,7 @@ const authRoute = require('./routes/auth')
 const classRoute = require('./routes/class')
 const studentsRoute = require('./routes/student')
 
-// Mount Routers
+// Mount Routers 
 app.use('/', indexRoutes)
 app.use('/auth', authRoute)
 app.use('/class', classRoute)

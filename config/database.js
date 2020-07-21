@@ -34,7 +34,7 @@ const connectToDB = async () => {
 			setTimeout(connectToDB(), 1000)	
 		}
 		process.exit(1) 
-	}
+	}  
 }
 
 module.exports = connectToDB

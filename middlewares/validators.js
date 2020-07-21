@@ -43,8 +43,8 @@ module.exports = {
                     .withMessage(`Password Must Be Between 6 and 40 Characters`)
                     .custom((confirmPassword, { req }) => {
                         if (confirmPassword !== req.body.password) {
-                            throw new Error(`Passwords Must Match`)
-                        }
+                            throw new Error('Password confirmation does not match password');
+                          }
                     }),
     handleValidationErrors (templatePath) {
         return (req, res, next) => {
@@ -56,6 +56,22 @@ module.exports = {
             
             next()
         }
-    }
+    },
+    checkUserExistence: check('displayName')
+                            .trim()
+                            .isLength({ min: 3, max: 15 })
+                            .withMessage(`Please Enter Your Username`)
+                            .custom( async (displayName, { req }) => {
+                                const teacher =  await Teacher.findOne({ displayName }).select('+password')
+                                if(!teacher) {
+                                    throw new Error(`Username and Password Don't Match`)
+                                }
+
+                                const isMatch = await teacher.comparePasswords(req.body.password)
+
+                                if(!isMatch) {
+                                    throw new Error(`Username and Password Don't Match`)
+                                }
+                            })
 
 }

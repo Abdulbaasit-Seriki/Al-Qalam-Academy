@@ -8,7 +8,7 @@ class ErrorResponse extends Error {
 		return res.render('errorPage', { msg: this.message, statusCode: this.statusCode })
 	}
 
-	redirect(res, templatePath, msg) {
+	redirect(res, templatePath, msg = this.message) {
 		return res.render(templatePath, { msg })
 	}
 }
