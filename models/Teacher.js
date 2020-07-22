@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+const crypto = require('crypto')
+const util = require('util')
 const jwt = require('jsonwebtoken')
+const scrypt = util.promisify(crypto.scrypt)
 
 const TeacherSchema = new mongoose.Schema({
     googleId: {
@@ -53,21 +55,24 @@ const TeacherSchema = new mongoose.Schema({
 
 // Encrypt Password
 TeacherSchema.pre('save', async function (next) {
-	const salt = await bcrypt.genSalt(10)
-	this.password = bcrypt.hash(this.password, salt)
-	next()
+  const salt = crypto.randomBytes(10).toString('hex')
+  const key = await scrypt(this.password, salt, 64);
+	this.password = `${key.toString('hex')}.${salt}`
 })
 
 // Assign JWT 
 TeacherSchema.methods.assignJWT = function () {
-	return jwt.sign({ id: this_id }, process.env.JWT_SECRET, {
+	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
 		expiresIn: process.env.JWT_EXPIRY_DATE
 	})
 }
 
 // Match User Credentilas and Password
 TeacherSchema.methods.comparePasswords = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password)
+  const [hashedPswrd, savedSalt] = this.password.split('.');
+
+		const newHashBuffer = await scrypt(enteredPassword, savedSalt, 64);
+		return hashedPswrd === newHashBuffer.toString('hex');
 }
 
 module.exports = mongoose.model('Teacher', TeacherSchema)

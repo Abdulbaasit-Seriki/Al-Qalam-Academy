@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 app.use(errorHandler)
-app.use(cookieParser)
+app.use(cookieParser())
 
 // Body Parser 
 app.use(bodyParser.urlencoded({ extended: true }))

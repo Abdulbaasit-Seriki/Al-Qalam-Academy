@@ -69,9 +69,9 @@ router.post('/teachers/signup',
  asyncErrorHandler( async (req, res, next) => {
 	const { firstName, lastName, displayName, emailAddress, password, gender, role } = req.body
 
-	const teacher = await Teacher.create(
+	const teacher = await Teacher.create({
 		firstName, lastName, displayName, emailAddress, password, gender, role
-	)
+	})
 	const token = teacher.assignJWT()
 	console.log(token)
 	res.redirect(`/teachers/${teacher.id}`)
