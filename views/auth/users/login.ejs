@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/css/form.css">
+	<title>Login</title>
+</head>
+<body>
+	<% const getErrors = (errors, property) => { %>
+		<% try { %>
+		  <% return errors.mapped()[property].msg %>
+		<% } catch(err) { %>
+			<% return ''; %>
+		  <% } %>
+	<% } %>
+	<div class="container">
+		<form  id="form" action="/auth/teachers/login" method="POST" class="form">
+			<h2>Login</h2>
+            <div class="form-control">
+				<label for="middlename">Username</label>
+				<input type="text" name="displayName" id="displayname" placeholder="Username">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'displayName') %></em></small>
+				<% } %>
+			</div>
+			<div class="form-control">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="Password">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'password') %></em></small>
+				<% } %>
+			</div>
+			
+			<button>Login</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="/js/form.js"></script>
+</body>
+</html>

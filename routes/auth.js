@@ -72,22 +72,27 @@ router.post('/teachers/signup',
 	const teacher = await Teacher.create({
 		firstName, lastName, displayName, emailAddress, password, gender, role
 	})
-	const token = teacher.assignJWT()
-	console.log(token)
-	res.redirect(`/teachers/${teacher.id}`)
+
+	sendCookieToken(teacher, res, `/teachers/${teacher.id}`)
+}))
+
+
+// description     	Login A Teacher
+// route			GET /auth/teacher/login
+// Authorisation	Public
+router.get('/teachers/login', asyncErrorHandler( async (req, res, next) => {
+	res.render('auth/users/login', { errors: null })
 }))
 
 // description     	Login A Teacher
 // route			POST /auth/teacher/login
 // Authorisation	Public
-router.post('/teachers/login', [checkUserExistence], asyncErrorHandler( async (req, res, next) => {
-	const token = teacher.assignJWT()
-	console.log(token)
-	res.redirect(`/teachers/${teacher.id}`)
+router.post('/teachers/login', [validatePassword, checkUserExistence],
+ handleValidationErrors('auth/users/login'),
+ asyncErrorHandler( async (req, res, next) => {
+	const teacher =  await Teacher.findOne({ displayName: req.body.displayName })
+	sendCookieToken(teacher, res, `/teachers/${teacher.id}`)
 }))
 
-router.get('/teachers/me', protectRoute, asyncErrorHandler( async (req, res, next) => {
-	const user = Teacher.findById(req.user.id)
-}))
 
 module.exports = router

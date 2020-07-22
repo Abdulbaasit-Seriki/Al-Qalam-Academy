@@ -21,35 +21,37 @@ exports.sendCookieToken = (user, res, path)  => {
     res.cookie('token', token, options).redirect(path)
 }
 
-exports.protectRoute = asyncErrorHandler( async (req, res, next, templatePath) => {
-    let token;
+exports.protectRoute =  (templatePath) => {
+    return asyncErrorHandler( async (req, res, next) => {
+        let token;
 
-    if (req.cookies.token) {
-        token = req.cookies.token
-    }
-
-    if (!token) {
-        return next(new ErrorResponse(
-            `Ooopps!!, Not Authorised to Access this Route`, 401)
-            .redirect(res, templatePath)
-        )
-    }
-
-    // Verify the Token
-    try {
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
-        console.log(decodedToken)
-
-        req.user = await Teacher.findById(decodedToken.id)
-
-        next()
-    } catch (err) {
-        return next(new ErrorResponse(
-            `Ooopps!!, Not Authorised to Access this Route`, 401)
-            .redirect(res, templatePath)
-        )
-    }
-})
+        if (req.cookies.token) {
+            token = req.cookies.token
+        }
+    
+        if (!token) {
+            return next(new ErrorResponse(
+                `Ooopps!!, Not Authorised to Access this Route`, 401)
+                .redirect(res, templatePath)
+            )
+        }
+    
+        // Verify the Token
+        try {
+            const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+            console.log(decodedToken)
+    
+            req.user = await Teacher.findById(decodedToken.id)
+    
+            next()
+        } catch (err) {
+            return next(new ErrorResponse(
+                `Ooopps!!, Not Authorised to Access this Route`, 401)
+                .redirect(res, templatePath)
+            )
+        }
+    }) 
+}
 
 
 exports.authorize = (templatePath, ...roles) => {
