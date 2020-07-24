@@ -4,9 +4,9 @@ const ErrorResponse = require('./ErrorResponse')
 const Teacher = require('../models/Teacher')
 
 // Send Token In A Cookie 
-exports.sendCookieToken = (user, res, path)  => {
+exports.sendCookieToken = (user, req)  => {
     const token = user.assignJWT()
-
+    
     const options = {
         expires: new Date(
             Date.now() + process.env.JWT_COOKIE_EXPIRY_DATE * 24 * 360 * 1000
@@ -18,41 +18,54 @@ exports.sendCookieToken = (user, res, path)  => {
         options.secure = true
     }
 
-    res.cookie('token', token, options).redirect(path)
+    req.session.token = token
+    console.log(token)
+    console.log(req.session.token)
+    req.sessionOptions = options
 }
 
-exports.protectRoute =  (templatePath) => {
-    return asyncErrorHandler( async (req, res, next) => {
-        let token;
+// exports.protectRoute =  (templatePath) => {
+//     return asyncErrorHandler( async (req, res, next) => {
+//         let token
 
-        if (req.cookies.token) {
-            token = req.cookies.token
-        }
+//         if (req.session.token) {
+//             token = req.session.token
+//         }
     
-        if (!token) {
-            return next(new ErrorResponse(
-                `Ooopps!!, Not Authorised to Access this Route`, 401)
-                .redirect(res, templatePath)
-            )
-        }
+//         if (!token) {
+//             return next(new ErrorResponse(
+//                 `Ooopps!!, Not Authorised to Access this Route`, 401)
+//                 .renderErrorPage(res)
+//             )
+//         }
     
-        // Verify the Token
-        try {
-            const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
-            console.log(decodedToken)
+//         // Verify the Token
+//         try {
+//             const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
+//             console.log(decodedToken)
     
-            req.user = await Teacher.findById(decodedToken.id)
+//             req.user = await Teacher.findById(decodedToken.id)
     
-            next()
-        } catch (err) {
-            return next(new ErrorResponse(
-                `Ooopps!!, Not Authorised to Access this Route`, 401)
-                .redirect(res, templatePath)
-            )
-        }
-    }) 
-}
+//             next()
+//         } catch (err) {
+//              return next(new ErrorResponse(
+//                 `Ooopps!!, Not Authorised to Access this Route`, 401)
+//                 .renderErrorPage(res)
+//             )
+//         }
+//     }) 
+// }
 
+exports.protectRoute = asyncErrorHandler( async (req, res, next) => {
+    if (!req.session.token) {
+        return next(new ErrorResponse(
+            `Ooopps!!, Not Authorised to Access this Route`, 401)
+            .renderErrorPage(res)
+        )
+    }
+
+    next();
+})
 
 exports.authorize = (templatePath, ...roles) => {
     return (req, res, next) => {

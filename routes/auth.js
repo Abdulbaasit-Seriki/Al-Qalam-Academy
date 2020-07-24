@@ -73,7 +73,8 @@ router.post('/teachers/signup',
 		firstName, lastName, displayName, emailAddress, password, gender, role
 	})
 
-	sendCookieToken(teacher, res, `/teachers/${teacher.id}`)
+	sendCookieToken(teacher, req)
+	res.redirect(`/teachers/${teacher.id}`)
 }))
 
 
@@ -85,13 +86,15 @@ router.get('/teachers/login', asyncErrorHandler( async (req, res, next) => {
 }))
 
 // description     	Login A Teacher
-// route			POST /auth/teacher/login
+// route			POST /auth/teacher/login 
 // Authorisation	Public
 router.post('/teachers/login', [validatePassword, checkUserExistence],
  handleValidationErrors('auth/users/login'),
  asyncErrorHandler( async (req, res, next) => {
 	const teacher =  await Teacher.findOne({ displayName: req.body.displayName })
-	sendCookieToken(teacher, res, `/teachers/${teacher.id}`)
+	sendCookieToken(teacher, req)
+
+	res.redirect(`/teachers/${teacher.id}`)
 }))
 
 

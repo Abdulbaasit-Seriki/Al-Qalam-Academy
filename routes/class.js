@@ -4,6 +4,7 @@ const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
 const studentsRouter = require('./student')
 const { validateClassName, validateMotto, handleValidationErrors} = require('../middlewares/validators')
+const { protectRoute } = require('../middlewares/auth')
 
 const router = express.Router()
    
@@ -25,7 +26,7 @@ router.get('/', asyncErrorHandler( async (req, res, next) => {
 // description     	Create new Class
 // route			GET /class/create
 // Authorisation	Yes
-router.get('/create', asyncErrorHandler( async (req, res, next) => {
+router.get('/create', protectRoute, asyncErrorHandler( async (req, res, next) => {
 	res.render('class/create', { errors: null })
 }))
  
@@ -34,6 +35,7 @@ router.get('/create', asyncErrorHandler( async (req, res, next) => {
 // route			POST /class/create
 // Authorisation	Yes
 router.post('/create', 
+protectRoute,
 [validateClassName, validateMotto], 
 handleValidationErrors('class/create'), 
 asyncErrorHandler(async (req, res, next) => {

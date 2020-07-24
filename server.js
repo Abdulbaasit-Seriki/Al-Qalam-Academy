@@ -5,6 +5,7 @@ const passport = require('passport')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 const methodOverride = require('method-override')
 
 const connectToDB = require('./config/database')
@@ -29,7 +30,11 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.static('public'))
 app.use(methodOverride('_method'))
 app.use(errorHandler)
-app.use(cookieParser())
+// app.use(cookieParser())
+app.use(cookieSession({
+	keys: ['lajsuh8lns']
+}));
+
 
 // Body Parser 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -39,11 +44,11 @@ app.use(bodyParser.json())
 app.set("view engine", "ejs")
 
 // Express Sessions
-app.use(session({
-	secret: 'keyboard cat',
-	resave: false,
-	saveUninitialized: false
-}))
+// app.use(session({
+// 	secret: 'keyboard cat',
+// 	resave: false,
+// 	saveUninitialized: false
+// }))
 
 // Passport Middleware
 app.use(passport.initialize())
