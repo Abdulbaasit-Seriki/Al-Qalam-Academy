@@ -4,9 +4,11 @@ const morgan = require('morgan')
 const passport = require('passport')
 const session = require('express-session')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const methodOverride = require('method-override')
+const MongoStore = require('connect-mongo')(session)
 
 const connectToDB = require('./config/database')
 const errorHandler = require('./middlewares/error.js');
@@ -59,11 +61,12 @@ if (process.env.NODE_ENV = 'production') {
 
 // Express Sessions
 app.use(session({
-	...options
+	...options,
+	store: new MongoStore({ mongooseConnection: mongoose.connection })
 }))
 
 // Passport Middleware
-app.use(passport.initialize())
+app.use(passport.initialize()) 
 app.use(passport.session())
 
 

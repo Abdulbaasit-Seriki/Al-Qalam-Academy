@@ -32,11 +32,7 @@ exports.protectRoute = asyncErrorHandler( async (req, res, next) => {
     //  Verify the Token
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
-        console.log(decodedToken)
-
         req.user = await Teacher.findById(decodedToken.id)
-        console.log(req.user)
-
         next()
     } catch (err) {
             return next(new ErrorResponse(  
