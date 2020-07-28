@@ -46,8 +46,8 @@ app.use(bodyParser.json())
 app.set("view engine", "ejs")
 
 const options = {
-	secret: 'keyboard cat',
-	name: 'token',
+	secret: process.env.SESSION_SECRET,
+	name: process.env.SESSION_NAME,
 	cookie: {
 		maxAge: 1000 * 60 * 30
 	},

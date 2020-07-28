@@ -14,6 +14,13 @@
 		  <% } %>
 	<% } %>
 	<div class="container">
+
+		<% if(msg) { %>
+			<p class="error-msg" style="color: red;"><%=msg%></p>
+		<% } else { %>
+			<p class="error-msg"></p>
+		<% }%>
+		
 		<form  id="form" action="/auth/teachers/login" method="POST" class="form">
 			<h2>Login</h2>
             <div class="form-control">
@@ -21,14 +28,18 @@
 				<input type="text" name="displayName" id="displayname" placeholder="Username">
 				<% if(errors) { %>
 					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'displayName') %></em></small>
-				<% } %>
+				<% } else { %>
+					<small style="visibility: hidden; color: red;"><em></em></small>
+				<% } %>	
 			</div>
 			<div class="form-control">
 				<label for="password">Password</label>
 				<input type="password" id="password" name="password" placeholder="Password">
 				<% if(errors) { %>
 					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'password') %></em></small>
-				<% } %>
+				<% } else { %>
+					<small style="visibility: hidden; color: red;"><em></em></small>
+				<% } %>	
 			</div>
 			
 			<button>Login</button>

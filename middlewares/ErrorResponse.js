@@ -9,7 +9,7 @@ class ErrorResponse extends Error {
 	}
 
 	redirect(res, templatePath, msg = this.message) {
-		return res.render(templatePath, { msg })
+		return res.render(templatePath, { msg, errors: null })
 	}
 }
 

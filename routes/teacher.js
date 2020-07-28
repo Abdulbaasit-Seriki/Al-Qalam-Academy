@@ -2,7 +2,7 @@ const express = require('express')
 const Teacher = require('../models/Teacher')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
-const { protectRoute } = require('../middlewares/auth')
+const { protectRoute, logOut } = require('../middlewares/auth')
 
 const router = express.Router()
 // description     	Get A Teacher
@@ -34,20 +34,21 @@ router.get('/me', protectRoute, asyncErrorHandler( async (req, res, next) => {
 router.get('/:id/logout',  protectRoute, asyncErrorHandler( async (req, res, next) => {
     const teacher = await Teacher.findById(req.params.id)
     
-    if (!teacher) {
+    if (!teacher) { 
         return next(
             new ErrorResponse(`Sorry!!! The teacher with ${req.params.id} cannot be found`, 404)
 			.renderErrorPage(res)
         )
-    }
-    console.log(`${req.session.token} from the first logout route`)
-    console.log(`${req.user} from the first logout route`)
+    } 
+    
+    req.session.destroy( err => {
+        if (err) {
+            console.error(err)
+        }  
+    })
 
-    req.session = null;
-    req.user = null
-    console.log(`${req.session.token} from the logout route`)
-    console.log(`${req.user} from the logout route`)
+    res.clearCookie(process.env.SESSION_NAME)
 	res.redirect('/')
-}))
+}))    
 
 module.exports = router
