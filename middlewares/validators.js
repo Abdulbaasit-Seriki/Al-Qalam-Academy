@@ -25,9 +25,9 @@ module.exports = {
                             throw new Error(`This Email Has been Picked, Kindly Enter Another One`)
                         }
                     }),
-    validateClassName: check('className')
+    validateClassName: check('name')
                     .trim()
-                    .isLength({ min: 1, max: 20 })
+                    .isLength({ min: 3, max: 20 })
                     .withMessage(`Name Must Be Between 1 and 20 characters`),
     validateMotto: check('motto')
                     .trim()
@@ -71,6 +71,16 @@ module.exports = {
 
                                 if(!isMatch) {
                                     throw new Error(`Username and Password Don't Match`)
+                                }
+                            }),
+    checkDisplayName: check('displayName')
+                            .trim()
+                            .isLength({ min: 3, max: 15 })
+                            .withMessage(`Please Enter Your Username`)
+                            .custom( async displayName => {
+                                const teacher = await Teacher.findOne({ displayName })
+                                if (!teacher) {
+                                    throw new Error(`Username does not Exist`)
                                 }
                             })
 

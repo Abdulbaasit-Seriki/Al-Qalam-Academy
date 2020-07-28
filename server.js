@@ -31,9 +31,9 @@ app.use(express.static('public'))
 app.use(methodOverride('_method'))
 app.use(errorHandler)
 // app.use(cookieParser())
-app.use(cookieSession({
-	keys: ['lajsuh8lns']
-}));
+// app.use(cookieSession({
+// 	keys: ['lajsuh8lns']
+// }));
 
 
 // Body Parser 
@@ -43,12 +43,24 @@ app.use(bodyParser.json())
 // EJS 
 app.set("view engine", "ejs")
 
+const options = {
+	secret: 'keyboard cat',
+	name: 'token',
+	cookie: {
+		maxAge: 1000 * 60 * 30
+	},
+	resave: false,
+	saveUninitialized: false
+}
+
+if (process.env.NODE_ENV = 'production') {
+	options.secure = true
+}
+
 // Express Sessions
-// app.use(session({
-// 	secret: 'keyboard cat',
-// 	resave: false,
-// 	saveUninitialized: false
-// }))
+app.use(session({
+	...options
+}))
 
 // Passport Middleware
 app.use(passport.initialize())

@@ -55,9 +55,14 @@ const TeacherSchema = new mongoose.Schema({
 
 // Encrypt Password
 TeacherSchema.pre('save', async function (next) {
-  const salt = crypto.randomBytes(10).toString('hex')
-  const key = await scrypt(this.password, salt, 64);
-	this.password = `${key.toString('hex')}.${salt}`
+  if (this.isModified('password')) {
+    const salt = crypto.randomBytes(10).toString('hex')
+    const key = await scrypt(this.password, salt, 64);
+	  this.password = `${key.toString('hex')}.${salt}`
+  }
+  else {
+    next()
+  }
 })
 
 // Assign JWT 
@@ -73,6 +78,20 @@ TeacherSchema.methods.comparePasswords = async function (enteredPassword) {
 
 		const newHashBuffer = await scrypt(enteredPassword, savedSalt, 64);
 		return hashedPswrd === newHashBuffer.toString('hex');
+}
+
+// Generate Password Token
+TeacherSchema.methods.getresetPasswordToken = async function() {
+  // Get Token
+  const resetToken = crypto.randomBytes(20).toString('hex')
+
+  // Hash tokjen and set to field
+  this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+
+  // Set Expiry Date
+  this.resetPasswordExpiration = Date.now() + 10 * 60 * 1000 //10 Days
+
+  return resetToken
 }
 
 module.exports = mongoose.model('Teacher', TeacherSchema)

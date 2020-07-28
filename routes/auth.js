@@ -4,7 +4,7 @@ const Teacher = require('../models/Teacher')
 const Student = require('../models/Student')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
-const { validateDisplayName,validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence} = require('../middlewares/validators')
+const { validateDisplayName,validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence, checkDisplayName} = require('../middlewares/validators')
 const { sendCookieToken,  protectRoute, authorize} = require('../middlewares/auth')
 
 const router = express.Router()
@@ -95,6 +95,18 @@ router.post('/teachers/login', [validatePassword, checkUserExistence],
 	sendCookieToken(teacher, req)
 
 	res.redirect(`/teachers/${teacher.id}`)
+}))
+
+// description     	Forgot Password
+// route			POST /auth/forgotpassword
+// Authorisation	Public
+router.post('/forgotpassword', protectRoute, [checkDisplayName], asyncErrorHandler( async (req, res, next) => {
+	const teacher = await Teacher.findOne({ displayName: req.body.displayName })
+
+	const resetToken = teacher.getresetPasswordToken
+	console.log(resetToken)
+
+	await teacher.save({ validateBeforeSave: false })
 }))
 
 

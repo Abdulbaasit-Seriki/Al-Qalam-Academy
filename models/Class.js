@@ -15,7 +15,12 @@ const ClassSchema = new mongoose.Schema({
 		required: [true, `Please Add A Suitable Motto`],
 		maxlength: [100, `Motto cannot be more than 100 characters`]
 	},
-	subjects: [String]
+	subjects: [String],
+	teacher: {
+		type: mongoose.Schema.ObjectId,
+		ref: 'Teacher',
+		required: true
+	}
 }, {
 	toJSON: { virtuals: true },
 	toObject: { virtuals: true }
