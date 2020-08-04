@@ -76,3 +76,14 @@ exports.logOut = asyncErrorHandler( async (req, res, next) => {
         })
     })
 })
+
+exports.isEmailVerified = asyncErrorHandler( async (req, res, next) => {
+    if (!req.user.isVerified) {
+        return next(new ErrorResponse( 
+            `Please Verify Your Email Before You Can Continue`, 403)
+            .renderErrorPage(res)
+        )
+    } else {
+        next()
+    }
+})

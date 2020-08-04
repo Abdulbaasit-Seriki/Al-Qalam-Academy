@@ -51,7 +51,7 @@ module.exports = {
             const errors = validationResult(req)   
 
             if (!errors.isEmpty()) {
-                return res.render(templatePath, { errors })
+                return res.render(templatePath, { errors, msg: null })
             }
             
             next()

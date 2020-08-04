@@ -1,11 +1,13 @@
 const express = require('express')
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
 const Teacher = require('../models/Teacher')
 const Student = require('../models/Student')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
-const { validateDisplayName,validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence, checkDisplayName} = require('../middlewares/validators')
+const { validateDisplayName, validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence, checkDisplayName} = require('../middlewares/validators')
 const { sendCookieToken,  protectRoute, authorize} = require('../middlewares/auth')
+const { sendmail, verifyEmail } = require('../utils/emails')
 
 const router = express.Router()
 
@@ -74,6 +76,7 @@ router.post('/teachers/signup',
 	})
 
 	sendCookieToken(teacher, req)
+	await verifyEmail(teacher)
 	res.redirect(`/teachers/${teacher.id}`)
 }))
 
@@ -82,7 +85,7 @@ router.post('/teachers/signup',
 // route			GET /auth/teacher/login
 // Authorisation	Public
 router.get('/teachers/login', asyncErrorHandler( async (req, res, next) => {
-	res.render('auth/users/login', { errors: null })
+	res.render('auth/users/login', { errors: null, msg: null })
 }))
 
 // description     	Login A Teacher
@@ -109,5 +112,26 @@ router.post('/forgotpassword', protectRoute, [checkDisplayName], asyncErrorHandl
 	await teacher.save({ validateBeforeSave: false })
 }))
 
+// description     	Verify Email
+// route			POST /auth/verifyemail/:token
+// Authorisation	Private
+router.get('/verifyemail/:token', asyncErrorHandler( async (req, res, next) => {
+	const decodedToken = jwt.verify(req.params.token, process.env.EMAIL_SECRET)
+	let teacher = Teacher.findById(decodedToken.id)
+
+	if (!teacher) {
+		return next(new ErrorResponse(
+            `Sorry Something went wrong`, 400)
+            .renderErrorPage(res)
+        )
+	}
+
+	teacher = await teacher.findByIdAndUpdate(decodedToken.id, {isVerified: true}, {
+		runValidators: true,
+		new: true
+	})
+
+	res.send(`Email Verified`)
+}))
 
 module.exports = router
