@@ -41,7 +41,6 @@ const TeacherSchema = new mongoose.Schema({
       password: {
         type: String,
         unique: true,
-        required: true,
         minlength: 6,
         select: false
       },
@@ -51,6 +50,7 @@ const TeacherSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
+      isVerified: Boolean
 })
 
 // Encrypt Password

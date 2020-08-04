@@ -10,6 +10,15 @@ exports.sendCookieToken = (user, req)  => {
     req.session.createdAt = Date.now()
 }
 
+exports.ensureAuth = asyncErrorHandler( async (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    else if(req.session.userId) {
+        
+    }
+})
+
 exports.protectRoute = asyncErrorHandler( async (req, res, next) => {
     let token
 

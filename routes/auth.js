@@ -12,7 +12,7 @@ const router = express.Router()
 // description     	Login with Google
 // route			GET /auth/google
 // Authorisation	Private
-router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 
 // description     	Google callback
 // route			GET /auth/google/callback
