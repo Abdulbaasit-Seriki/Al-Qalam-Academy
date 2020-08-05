@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+:root {
+    --white: #ffffff;
+    --gray: hsl(152, 11%, 76%);
+    --green: #0ec772;
+    --black: #2f3331;
+    --red: #ec2d51;
+    --light-blue: #3bacf3;
+    --orange: #ecb42d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: rgb(200, 245, 224);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 30px;
+}
+
+header {
+    background-color: var(--white);
+    width: 100%;
+    padding: 2rem;
+}
+
+.navbar ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: start; 
+}
+
+.navbar ul li a {
+    color: var(--gray);
+    display: inline-block;
+    font-size: 1rem;
+    text-decoration: none;
+    width: 100%;
+    padding: 1rem 2rem;
+    height: 100%;
+}
+
+.navbar ul li a:hover {
+    color: var(--black);
+    background-color: rgb(200, 245, 224);
+    border-radius: 20px;
+}
+
+main {
+    background-color: rgb(200, 245, 224);
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 2rem;
+}
+
+.welcome-msg {
+    padding: 2rem;
+    background-color: rgb(166, 243, 207);
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-msg h2 {
+    color: var(--green);
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.welcome-msg p {
+    font-size: .9rem;
+}
+
+.stats {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 30px;
+}
+
+.stats article {
+    background-color: var(--white);
+    padding: .5rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+}
+
+.stats article p {
+    margin: 0;
+}
