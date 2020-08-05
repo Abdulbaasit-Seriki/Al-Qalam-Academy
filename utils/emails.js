@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
 
-const sendMail = asyncErrorHandler( async msg => {
+const sendMail = asyncErrorHandler( async (msg, res) => {
     const options = {
         auth: {
             api_user: process.env.SENDGRID_USERNAME,
@@ -26,15 +26,14 @@ const sendMail = asyncErrorHandler( async msg => {
         console.log('Message sent: ' + info.response)
     } catch (error) {
         console.error(error)
-        return next(new ErrorResponse(
+        return new ErrorResponse(
             `Sorry Something went wrong, Email Couldn't Be Sent`, 501)
             .renderErrorPage(res)
-        )
     }
    
 }) 
 
-const verifyEmail = asyncErrorHandler( async (user) => {
+const verifyEmail = asyncErrorHandler( async (user, req, res) => {
     const emailToken = jwt.sign({ id: user.id }, process.env.EMAIL_SECRET, {
         expiresIn: process.env.JWT_EXPIRY_DATE
     })
@@ -50,7 +49,7 @@ const verifyEmail = asyncErrorHandler( async (user) => {
         `
     }
 
-    await sendMail(msg)
+    await sendMail(msg, res)
 })
 
 module.exports = {

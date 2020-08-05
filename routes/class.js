@@ -29,7 +29,7 @@ router.get('/', asyncErrorHandler( async (req, res, next) => {
 router.get('/create', protectRoute, authorize('classTeacher'), isEmailVerified,
 asyncErrorHandler( async (req, res, next) => {
 	res.render('class/create', { errors: null })
-}))
+}))  
  
 
 // description     	Create new Class

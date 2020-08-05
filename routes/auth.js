@@ -7,7 +7,7 @@ const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../middlewares/ErrorResponse')
 const { validateDisplayName, validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence, checkDisplayName} = require('../middlewares/validators')
 const { sendCookieToken,  protectRoute, authorize} = require('../middlewares/auth')
-const { sendmail, verifyEmail } = require('../utils/emails')
+const { sendMail, verifyEmail } = require('../utils/emails')
 
 const router = express.Router()
 
@@ -76,7 +76,6 @@ router.post('/teachers/signup',
 	})
 
 	sendCookieToken(teacher, req)
-	await verifyEmail(teacher)
 	res.redirect(`/teachers/${teacher.id}`)
 }))
 
@@ -112,8 +111,26 @@ router.post('/forgotpassword', protectRoute, [checkDisplayName], asyncErrorHandl
 	await teacher.save({ validateBeforeSave: false })
 }))
 
+
 // description     	Verify Email
-// route			POST /auth/verifyemail/:token
+// route			GET /auth/verifyemail/
+// Authorisation	Private
+router.get('/verifyemail', protectRoute, asyncErrorHandler( async (req, res, next) => {
+	const teacher = await Teacher.findById(req.user.id)
+	
+	if (!teacher) {
+		return next(new ErrorResponse(
+            `Sorry Something went wrong`, 400)
+            .renderErrorPage(res)
+        )
+	}
+	await verifyEmail(teacher, req)
+	res.send(`Check your email address for the verification link`)
+}))
+
+
+// description     	Verify Email
+// route			GET /auth/verifyemail/:token
 // Authorisation	Private
 router.get('/verifyemail/:token', asyncErrorHandler( async (req, res, next) => {
 	const decodedToken = jwt.verify(req.params.token, process.env.EMAIL_SECRET)
@@ -126,12 +143,13 @@ router.get('/verifyemail/:token', asyncErrorHandler( async (req, res, next) => {
         )
 	}
 
-	teacher = await teacher.findByIdAndUpdate(decodedToken.id, {isVerified: true}, {
+	teacher = await Teacher.findByIdAndUpdate(decodedToken.id, {isVerified: true}, {
 		runValidators: true,
 		new: true
 	})
 
 	res.send(`Email Verified`)
 }))
+
 
 module.exports = router

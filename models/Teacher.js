@@ -50,7 +50,10 @@ const TeacherSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
-      isVerified: Boolean
+      isVerified: {
+        type: Boolean,
+        default: false
+      }
 })
 
 // Encrypt Password
