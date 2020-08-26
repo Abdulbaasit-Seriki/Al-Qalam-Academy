@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const StudentSchema = new mongoose.Schema({
 	admissionNumber: {
@@ -34,5 +35,11 @@ const StudentSchema = new mongoose.Schema({
     required: true
   }
 })
+
+StudentSchema.methods.assignJWT = function() {
+	return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRY_DATE
+	})
+}
 
 module.exports = mongoose.model('Student', StudentSchema)

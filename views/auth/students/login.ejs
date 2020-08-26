@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/css/form.css">
+	<title>Login</title>
+</head>
+<body>
+	<% const getErrors = (errors, property) => { %>
+		<% try { %>
+		  <% return errors.mapped()[property].msg %>
+		<% } catch(err) { %>
+			<% return ''; %>
+		  <% } %>
+	<% } %>
+	<div class="container">
+
+		<% if(msg) { %>
+			<p class="error-msg" style="color: red;"><%=msg%></p>
+		<% } else { %>
+			<p class="error-msg"></p>
+		<% }%>
+		
+		<form  id="form" action="/auth/teachers/login" method="POST" class="form">
+			<h2>Login</h2>
+            <div class="form-control">
+				<label for="middlename">Admission Number</label>
+				<input type="text" name="admissionNumber" id="admissionNumber" placeholder="Admission Number e.g 009 or 023">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'admissionNumber') %></em></small>
+				<% } else { %>
+					<small style="visibility: hidden; color: red;"><em></em></small>
+				<% } %>	
+			</div>
+			<div class="form-control">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" placeholder="Password">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'password') %></em></small>
+				<% } else { %>
+					<small style="visibility: hidden; color: red;"><em></em></small>
+				<% } %>	
+			</div>
+			
+			<button>Login</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="/js/form.js"></script>
+</body>
+</html>

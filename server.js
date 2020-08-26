@@ -68,14 +68,15 @@ app.use(passport.session())
 
 // Routes
 const indexRoutes = require('./routes/index')
-const authRoute = require('./routes/auth')
+const teachersAuthRoute = require('./routes/auth/teacher')
+const studentsAuthRoute = require('./routes/auth/student')
 const classRoute = require('./routes/class')
 const studentsRoute = require('./routes/student')
 const teachersRoute = require('./routes/teacher')
 
 // Mount Routers 
 app.use('/', indexRoutes)
-app.use('/auth', authRoute)
+app.use('/auth', teachersAuthRoute, studentsAuthRoute)
 app.use('/class', classRoute)
 app.use('/students', studentsRoute)
 app.use('/teachers', teachersRoute)
