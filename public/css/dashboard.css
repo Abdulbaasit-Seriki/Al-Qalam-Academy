@@ -104,6 +104,13 @@ main {
     padding: .5rem 1.5rem;
     border-radius: 50px;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.stats article .fas {
+    font-size: 35px;
 }
 
 .stats article p {
@@ -199,6 +206,9 @@ aside {
     }
     .stats {
         grid-template-columns: 1fr;
+    }
+    .stats article {
+        flex-direction: row;
     }
     .events, .charts {
         grid-template-columns: 1fr;

@@ -76,7 +76,7 @@ router.post('/teachers/signup',
 	})
 
 	sendCookieToken(teacher, req)
-	res.render('dashboard')
+	res.redirect('/dashboard')
 }))
 
 
@@ -96,7 +96,7 @@ router.post('/teachers/login', [validatePassword, checkUserExistence],
 	const teacher =  await Teacher.findOne({ displayName: req.body.displayName })
 	sendCookieToken(teacher, req)
 
-	res.render('dashboard')
+	res.redirect('/dashboard')
 }))
 
 // description     	Forgot Password

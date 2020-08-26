@@ -2,6 +2,7 @@
 const path = require('path')
 const express = require('express')
 const router = express.Router()
+const { protectRoute } = require('../middlewares/auth')
 
 // description     	Landing Page
 // route			GET /
@@ -15,8 +16,9 @@ router.get('/', (req, res) => {
 // description     	Dashboard
 // route			GET /dashboard
 // Authorisation	Private
-router.get('/dashboard', (req, res) => {
-	res.render('dashboard')
+router.get('/dashboard', protectRoute, (req, res) => {
+	const user = req.user
+	res.render('dashboard', { user })
 })
 
 

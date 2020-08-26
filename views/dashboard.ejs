@@ -11,7 +11,7 @@
 	 <body class="admin">
          <header>
              <div class="logo">
-                 <img src="/img/user-2.jpg" alt="Al-Qalam Logo">
+                 <img src="/img/logo.jpg" alt="Al-Qalam Logo">
              </div>
              <nav class="navbar">
                  <ul>
@@ -27,25 +27,35 @@
          </header>
          <main>
              <article class="welcome-msg">
-                 <h2>Welcome back, Name Of The Person</h2>
+                 <h2>Welcome back, <%=user.displayName%></h2>
                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure soluta commodi minus pariatur doloribus obcaecati porro architecto quia, quod suscipit nihil corrupti velit, quo atque molestias. Tempore architecto libero asperiores.</p>
              </article>
              <section class="stats">
                 <article class="students">
-                    <p>Students</p>
-                    <p>74,643</p>
+                    <div>
+                        <p>Students</p>
+                        <p>74,643</p>
+                    </div>
                 </article>
                 <article class="parents">
-                    <p>Parents</p>
-                    <p>74,643</p>
+                    <div>
+                        <p>Parents</p>
+                        <p>74,643</p>
+                    </div>
                 </article>
                 <article class="Teachers">
-                    <p>Teachers</p>
-                    <p>74,643</p>
+                    <i class="fas fa-chalkboard-teacher" style="color: #0ec772;"></i>
+                    <div>
+                        <p>Teachers</p>
+                        <p>74</p>
+                    </div>
                 </article>
                 <article class="revenue">
-                    <p>Revenues</p>
-                    <p>74,643, 000</p>
+                    <i class="fas fa-sack-dollar" style="color: #ecb42d;"></i>
+                    <div>
+                        <p>Revenues</p>
+                        <p>74,643, 000</p>
+                    </div>
                 </article>
              </section>
              <section class="events">
@@ -74,8 +84,12 @@
          </main>
          <aside>
              <article class="profile-display">
-                 <img src="/img/user-1.jpg" alt="User's Image">
-                 <p>Role</p>
+                 <% if(user.img) { %>
+                    <img src="<%=user.image%>" alt="User's Image">
+                 <% } else { %>
+                    <img src="/img/user-1.jpg" alt="User's Image">
+                 <% } %>
+                 <p><%=user.role.charAt(0).toUpperCase() + user.role.slice(1)%></p>
              </article>
              <aricle class="upcoming">
                  <h2>Upcoming Events</h2>
