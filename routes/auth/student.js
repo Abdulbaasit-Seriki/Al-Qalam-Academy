@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const Student = require('../../models/Student')
 const asyncErrorHandler = require('../../middlewares/asyncErrorHandler')
 const ErrorResponse = require('../../middlewares/ErrorResponse')
-const { handleValidationErrors, validatePassword, confirmPassword, validateAdmissionNumber} = require('../../middlewares/validators')
+const { handleValidationErrors, validatePassword, confirmPassword, validateAdmissionNumber, validateDOB, checkStudentExistence} = require('../../middlewares/validators')
 const { sendCookieToken,  protectRoute, authorize} = require('../../middlewares/auth')
 
 const router = express.Router()
@@ -13,15 +13,15 @@ const router = express.Router()
 // route			GET /auth/student/signup
 // Authorisation	Public
 router.get('/student/signup', asyncErrorHandler( async (req, res, next) => {
-	res.render('auth/students/signup')
+	res.render('auth/students/signup',  { errors: null })
 }))
 
 // description     	Create A Student
 // route			POST /auth/student/signup
 // Authorisation	Public
 router.post('/student/signup', 
-	[validateAdmissionNumber ,validatePassword, confirmPassword], 
-	handleValidationErrors('auth/student/signup'), 
+	[validateAdmissionNumber, validateDOB ,validatePassword, confirmPassword], 
+	handleValidationErrors('auth/students/signup'), 
 	asyncErrorHandler( async (req, res, next) => {
 	const { className } = req.body
 	const foundClass = await Class.findOne({ name: className })
@@ -41,5 +41,18 @@ router.post('/student/signup',
 router.get('/student/login', asyncErrorHandler( async (req, res, next) => {
 	res.render('auth/students/login', { errors: null, msg: null })
 }))
+
+// description     	Login A Student
+// route			POST /auth/student/login 
+// Authorisation	Public
+router.post('/teachers/login', [validatePassword, checkStudentExistence],
+ handleValidationErrors('auth/users/login'),
+ asyncErrorHandler( async (req, res, next) => {
+	const teacher =  await Teacher.findOne({ displayName: req.body.displayName })
+	sendCookieToken(student, req)
+
+	res.redirect('/dashboard')
+}))
+
 
 module.exports = router

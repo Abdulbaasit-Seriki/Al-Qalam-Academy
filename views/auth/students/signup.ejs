@@ -6,8 +6,17 @@
 	<title>Students - Signup</title>
 </head>
 <body>
+
+	<% const getErrors = (errors, property) => { %>
+		<% try { %>
+		  <% return errors.mapped()[property].msg %>
+		<% } catch(err) { %>
+			<% return ''; %>
+		  <% } %>
+	<% } %>
+
 	<div class="container">
-		<form  id="form" action="/auth/students/signup" method="POST" class="form">
+		<form  id="form" action="/auth/student/signup" method="POST" class="form">
 			<h2>Register With Us</h2>
 			<div class="form-control">
 				<label for="firstname">First Name</label>
@@ -27,17 +36,30 @@
 			<div class="form-control">
 				<label for="admissionnumber">Admission Number</label>
 				<input type="text" name="admissionNumber" id="admissionNumber" placeholder="Admission Number">
-				<small><em>Error Message</em></small>
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'admissionNumber') %></em></small>
+				<% } %>
+			</div>
+			<div class="form-control">
+				<label for="admissionnumber">Date Of Birth</label>
+				<input type="date" name="dob" id="dob" placeholder="Date Of Birth">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'dob') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="password">Password</label>
-				<input type="password" id="password" placeholder="Password">
-				<small><em>Error Message</em></small>
+				<input type="password" id="password" name="password" placeholder="Password">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'password') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
-				<label for="password2">Confirm Password</label>
-				<input type="password" id="password2" placeholder="Confirm Password">
-				<small><em>Error Message</em></small>
+				<label for="confirmPassword">Confirm Password</label>
+				<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+				<% if(errors) { %>
+					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'confirmPassword') %></em></small>
+				<% } %>
 			</div>
 			<div class="form-control">
 				<label for="gender">Gender</label>

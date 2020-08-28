@@ -58,7 +58,7 @@ const confirmPassword = () => {
     .withMessage(`Password Must Be Between 6 and 40 Characters`)
     .custom((confirmPassword, { req }) => {
         if (confirmPassword !== req.body.password) {
-            throw new Error('Password confirmation does not match password');
+            throw new Error('Passwords do not match password');
             }
     })
 }
@@ -68,6 +68,7 @@ const handleValidationErrors =  (templatePath) => {
         const errors = validationResult(req)   
 
         if (!errors.isEmpty()) {
+            console.log(errors)
             return res.render(templatePath, { errors, msg: null })
         }
         
@@ -94,6 +95,25 @@ const checkUserExistence = () => {
     })
 }
 
+const checkStudentExistence = () => {
+    check('admissionNumber')
+    .trim()
+    .isInt()
+    .withMessage(`Please enter your Admission Number`)
+    .custom( async (admissionNumber, { req }) => {
+        const student = await Student.findOne({ admissionNumber })
+        if(!student) {
+            throw new Error(`Admission Number and Password Don't Match`)
+        }
+
+        const isMatch = await student.comparePasswords(req.body.password)
+
+        if(!isMatch) {
+            throw new Error(`Admission Number and Password Don't Match`)
+        }
+    })
+}
+
 const checkDisplayName = () => {
     check('displayName')
     .trim()
@@ -113,6 +133,13 @@ const validateAdmissionNumber = () => {
     .isInt()
     .isLength({ min: 3, max: 4 })
     .withMessage(`Please Enter Your Admission Number`)
+    .custom( async admissionNumber => {
+        const student = await Student.findOne({ admissionNumber })
+        if (student) {
+            throw new Error(`This Admission Number has been associated with another student, 
+            Kindly contact the school authority for yours number`)
+        }
+    })
 }
 
 const checkAdmissionNum = () => {
@@ -127,7 +154,13 @@ const checkAdmissionNum = () => {
             throw new Error(`Student does not Exist`)
         }
     })
-} 
+}
+
+const validateDOB = () => {
+    check('dob')
+    .isDate()
+    .withMessage(`Please enter your Date Of Birth`)
+}
 
 module.exports = {
     validateDisplayName,
@@ -140,5 +173,7 @@ module.exports = {
     checkDisplayName,
     validateAdmissionNumber,
     checkAdmissionNum,
-    handleValidationErrors   
+    validateDOB,
+    checkStudentExistence,
+    handleValidationErrors,   
 }
