@@ -1,13 +1,13 @@
 const express = require('express')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
-const Teacher = require('../models/Teacher')
-const Student = require('../models/Student')
-const asyncErrorHandler = require('../middlewares/asyncErrorHandler')
-const ErrorResponse = require('../middlewares/ErrorResponse')
-const { validateDisplayName, validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence, checkDisplayName} = require('../middlewares/validators')
-const { sendCookieToken,  protectRoute, authorize} = require('../middlewares/auth')
-const { sendMail, verifyEmail } = require('../utils/emails')
+const Teacher = require('../../models/Teacher')
+const Student = require('../../models/Student')
+const asyncErrorHandler = require('../../middlewares/asyncErrorHandler')
+const ErrorResponse = require('../../middlewares/ErrorResponse')
+const { validateDisplayName, validateClassName, validateMotto, handleValidationErrors, validatePassword, confirmPassword, validateEmail, checkUserExistence, checkDisplayName} = require('../../middlewares/validators')
+const { sendCookieToken,  protectRoute, authorize} = require('../../middlewares/auth')
+const { sendMail, verifyEmail } = require('../../utils/emails')
 
 const router = express.Router()
 
@@ -29,34 +29,9 @@ router.get('/google/callback', passport.authenticate('google', {
 // route			GET /auth/login
 // Authorisation	Public
 router.get('/login', (req, res) => {
-	res.render('auth/login')
+	res.render('auth/users/login')
 })
 
-// description     	Create A Student
-// route			GET /auth/student/signup
-// Authorisation	Public
-router.get('/student/signup', asyncErrorHandler( async (req, res, next) => {
-	res.render('auth/students/signup')
-}))
-
-// description     	Create A Student
-// route			POST /auth/student/signup
-// Authorisation	Public
-router.post('/student/signup', 
-	[validatePassword, confirmPassword], 
-	handleValidationErrors('auth/student/signup'), 
-	asyncErrorHandler( async (req, res, next) => {
-	const { className } = req.body
-	const foundClass = await Class.findOne({ name: className })
-
-	if (!foundClass) {
-		return next(new ErrorResponse(`${className} Not Found`, 404).renderErrorPage(res))
-	}
-	req.body.className = foundClass._id
-
-	const student = await Student.create(req.body)
-	res.redirect(`/students/${student.admissionNumber}`)
-}))
 
 // description     	Register User
 // route			POST /auth/user/signup
@@ -76,7 +51,7 @@ router.post('/teachers/signup',
 	})
 
 	sendCookieToken(teacher, req)
-	res.redirect('/dashboard')
+	res.redirect(`/teachers/${teacher.id}`)
 }))
 
 
@@ -105,7 +80,7 @@ router.post('/teachers/login', [validatePassword, checkUserExistence],
 router.post('/forgotpassword', protectRoute, [checkDisplayName], asyncErrorHandler( async (req, res, next) => {
 	const teacher = await Teacher.findOne({ displayName: req.body.displayName })
 
-	const resetToken = teacher.getresetPasswordToken
+	const resetToken = teacher.getresetPasswordToken()
 	console.log(resetToken)
 
 	await teacher.save({ validateBeforeSave: false })

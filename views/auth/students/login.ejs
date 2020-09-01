@@ -15,28 +15,26 @@
 			<% return ''; %>
 		  <% } %>
 	<% } %>
-	
 	<div class="err-container">
 		<% if(msg) { %>
 			<p class="error-msg" style="color: red;"><%=msg%></p>
 		<% } else { %>
 			<p class="error-msg"></p>
 	<% }%>
-	
+		
     <div class="container">
         <div class="form-cont">
-            <a href="/auth/google" class="btn btn-ghost">
+            <!-- <a href="/auth/google" class="btn btn-ghost">
                 <img src="./img/google.png" alt="">Log in with Google
-            </a>
+            </a> -->
                      
             <form id="form" action="/auth/teachers/login" method="POST" class="form">
-                <small>or</small>
 
                 <div class="form-control">
-                    <label for="username">Username</label>
-					<input type="text" name="displayName" id="displayname" placeholder="Username">
+					<label for="admissionNumber">Admission Number</label>
+					<input type="text" name="admissionNumber" id="admissionNumber" placeholder="Admission Number e.g 009 or 023">
 					<% if(errors) { %>
-						<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'displayName') %></em></small>
+						<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'admissionNumber') %></em></small>
 					<% } else { %>
 						<small style="visibility: hidden; color: red;"><em></em></small>
 					<% } %>	
@@ -61,7 +59,7 @@
 
                 <button class="btn">Log In</button>
 
-                <small>Don't have an account? <a href="auth/teachers/signup">Sign up</a></small>
+                <small>Don't have an account? <a href="/auth/student/signup">Sign up</a></small>
             </form>
         </div>
 
@@ -85,7 +83,6 @@
                     web interfaces.</p>
             </div>
         </div>
-	</div>
-	<script type="text/javascript" src="/js/form.js"></script>
+    </div>
 </body>
 </html>

@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const asyncErrorHandler = require('./asyncErrorHandler')
 const ErrorResponse = require('./ErrorResponse')
 const Teacher = require('../models/Teacher')
+const Student = require('../models/Student')
 
 // Send Token In A Cookie 
 exports.sendCookieToken = (user, req)  => {
@@ -15,12 +16,24 @@ exports.ensureAuth = asyncErrorHandler( async (req, res, next) => {
         return next()
     }
     else if(req.session.userId) {
-        
+        return next()
+    }
+    else {
+        return next(new ErrorResponse(
+            `Ooopps!!, Not Authorised to Access this Route`, 401)
+            .redirect(res, 'auth/users/login')
+        )
+    }
+})
+
+exports.ensureGuest = asyncErrorHandler( async (req, res, next) => {
+    if (!req.session.userId) {
+        return next()
     }
 })
 
 exports.protectRoute = asyncErrorHandler( async (req, res, next) => {
-    let token
+    let token, user
 
     if (!req.session.userId) {
         return next(new ErrorResponse(
@@ -41,7 +54,13 @@ exports.protectRoute = asyncErrorHandler( async (req, res, next) => {
     //  Verify the Token 
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
-        req.user = await Teacher.findById(decodedToken.id)
+
+        user = await Teacher.findById(decodedToken.id)
+        if(!user) {
+            user = await Student.findById(decodedToken.id)
+        }
+        // Replace it with req.user = teacher || student || parent, depending on which is found 
+        req.user = user
         next()
     } catch (err) {
         return next(new ErrorResponse(

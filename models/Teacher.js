@@ -77,10 +77,10 @@ TeacherSchema.methods.assignJWT = function () {
 
 // Match User Credentilas and Password
 TeacherSchema.methods.comparePasswords = async function (enteredPassword) {
-  const [hashedPswrd, savedSalt] = this.password.split('.');
+  const [hashedPswrd, savedSalt] = this.password.split('.')
 
-		const newHashBuffer = await scrypt(enteredPassword, savedSalt, 64);
-		return hashedPswrd === newHashBuffer.toString('hex');
+		const newHashBuffer = await scrypt(enteredPassword, savedSalt, 64)
+		return hashedPswrd === newHashBuffer.toString('hex')
 }
 
 // Generate Password Token
