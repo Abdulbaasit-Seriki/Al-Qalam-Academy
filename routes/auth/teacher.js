@@ -29,7 +29,7 @@ router.get('/google/callback', passport.authenticate('google', {
 // route			GET /auth/login
 // Authorisation	Public
 router.get('/login', (req, res) => {
-	res.render('auth/login')
+	res.render('auth/users/login')
 })
 
 

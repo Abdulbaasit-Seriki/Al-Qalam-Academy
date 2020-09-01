@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="/css/form.css">
-	<title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" integrity="sha256-46r060N2LrChLLb5zowXQ72/iKKNiw/lAmygmHExk/o=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Login</title>
 </head>
 <body>
 	<% const getErrors = (errors, property) => { %>
@@ -13,37 +15,76 @@
 			<% return ''; %>
 		  <% } %>
 	<% } %>
-	<div class="container">
-
+	
+	<div class="err-container">
 		<% if(msg) { %>
 			<p class="error-msg" style="color: red;"><%=msg%></p>
 		<% } else { %>
 			<p class="error-msg"></p>
-		<% }%>
-		
-		<form  id="form" action="/auth/teachers/login" method="POST" class="form">
-			<h2>Login</h2>
-            <div class="form-control">
-				<label for="middlename">Username</label>
-				<input type="text" name="displayName" id="displayname" placeholder="Username">
-				<% if(errors) { %>
-					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'displayName') %></em></small>
-				<% } else { %>
-					<small style="visibility: hidden; color: red;"><em></em></small>
-				<% } %>	
-			</div>
-			<div class="form-control">
-				<label for="password">Password</label>
-				<input type="password" id="password" name="password" placeholder="Password">
-				<% if(errors) { %>
-					<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'password') %></em></small>
-				<% } else { %>
-					<small style="visibility: hidden; color: red;"><em></em></small>
-				<% } %>	
-			</div>
-			
-			<button>Login</button>
-		</form>
+	<% }%>
+	
+    <div class="container">
+        <div class="form-cont">
+            <a href="/auth/google" class="btn btn-ghost">
+                <img src="./img/google.png" alt="">Log in with Google
+            </a>
+                     
+            <form id="form" action="/auth/teachers/login" method="POST" class="form">
+                <small>or</small>
+
+                <div class="form-control">
+                    <label for="username">Username</label>
+					<input type="text" name="displayName" id="displayname" placeholder="Username">
+					<% if(errors) { %>
+						<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'displayName') %></em></small>
+					<% } else { %>
+						<small style="visibility: hidden; color: red;"><em></em></small>
+					<% } %>	
+                </div>
+
+                <div class="form-control">
+                    <label for="password">Password</label>
+					<input type="password" id="password" name="password" placeholder="Password">
+					<% if(errors) { %>
+						<small style="visibility: visible; color: red;"><em><%= getErrors(errors, 'password') %></em></small>
+					<% } else { %>
+						<small style="visibility: hidden; color: red;"><em></em></small>
+					<% } %>	
+                </div>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+
+                    <a href="#">Forgot Password</a>
+                </div>
+
+                <button class="btn">Log In</button>
+
+                <small>Don't have an account? <a href="auth/teachers/signup">Sign up</a></small>
+            </form>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-code"></i>
+                <h3>Development</h3>
+                <p>A modern and clean design system for developing fast and powerful
+                    web interfaces.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-gift"></i>
+                <h3>Features</h3>
+                <p>A modern and clean design system for developing fast and powerful
+                    web interfaces.</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-edit"></i>
+                <h3>Updates</h3>
+                <p>A modern and clean design system for developing fast and powerful
+                    web interfaces.</p>
+            </div>
+        </div>
 	</div>
 	<script type="text/javascript" src="/js/form.js"></script>
 </body>

@@ -45,10 +45,10 @@ router.get('/student/login', asyncErrorHandler( async (req, res, next) => {
 // description     	Login A Student
 // route			POST /auth/student/login 
 // Authorisation	Public
-router.post('/teachers/login', [validatePassword, checkStudentExistence],
- handleValidationErrors('auth/users/login'),
+router.post('/student/login', [validatePassword, checkStudentExistence],
+ handleValidationErrors('auth/students/login'),
  asyncErrorHandler( async (req, res, next) => {
-	const teacher =  await Teacher.findOne({ displayName: req.body.displayName })
+	const teacher =  await Student.findOne({ admissionNumber: req.admissionNumber })
 	sendCookieToken(student, req)
 
 	res.redirect('/dashboard')

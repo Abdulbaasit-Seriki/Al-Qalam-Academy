@@ -59,7 +59,7 @@ exports.protectRoute = asyncErrorHandler( async (req, res, next) => {
         if(!user) {
             user = await Student.findById(decodedToken.id)
         }
-
+        // Replace it with req.user = teacher || student || parent, depending on which is found 
         req.user = user
         next()
     } catch (err) {
