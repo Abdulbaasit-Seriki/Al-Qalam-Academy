@@ -4,109 +4,44 @@
 		<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dashboard</title>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"> 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
         <link href="/css/dashboard.css" rel="stylesheet">
 	</head>
-	 <body class="admin">
-         <header>
-             <div class="logo">
-                 <img src="/img/logo.jpg" alt="Al-Qalam Logo">
-             </div>
-             <nav class="navbar">
-                 <ul>
-                     <li><a href="">Dashboard</a></li>
-                     <li><a href="">Library</a></li>
-                     <li><a href="">Attendance</a></li>
-                     <li><a href="">Mails</a></li>
-                     <li><a href="">Staff</a></li>
-                     <li><a href="">Events</a></li>
-                     <li><a href="">Revenue</a></li>
-                 </ul>
-             </nav>
-         </header>
-         <main>
-             <article class="welcome-msg">
-                 <h2>Welcome back, <%=user.displayName%></h2>
-                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure soluta commodi minus pariatur doloribus obcaecati porro architecto quia, quod suscipit nihil corrupti velit, quo atque molestias. Tempore architecto libero asperiores.</p>
-             </article>
-             <section class="stats">
-                <article class="students">
-                    <div>
-                        <p>Students</p>
-                        <p>74,643</p>
+	 <body id="main-page">
+        <header class="header">
+            <div class="cont">
+                <div class="left-header">
+                    <a href="/" class="img-logo">
+                        <img src="/img/logo.jpg" class="logo" alt="" srcset="">
+                    </a>
+                    <div class="dropdown">
+                        <span class="icon link-nav">
+                            <i class="main-icon menu-center"></i>
+                        </span>
+                        <a href="" class="icon link-nav">
+                            <i class="main-icon inbox"></i>
+                        </a>
+                        <a href="" class="icon phone-hide link-nav">
+                            <i class="main-icon app-folder"></i>
+                        </a>
+                        <a href="" class="icon phone-hide link-nav">
+                            <i class="main-icon share"></i>
+                        </a>
+                        <span class="nav-link settingbar">
+                            <i class="main-icon settings"></i>
+                        </span>
                     </div>
-                </article>
-                <article class="parents">
-                    <div>
-                        <p>Parents</p>
-                        <p>74,643</p>
-                    </div>
-                </article>
-                <article class="Teachers">
-                    <i class="fas fa-chalkboard-teacher" style="color: #0ec772;"></i>
-                    <div>
-                        <p>Teachers</p>
-                        <p>74</p>
-                    </div>
-                </article>
-                <article class="revenue">
-                    <i class="fas fa-sack-dollar" style="color: #ecb42d;"></i>
-                    <div>
-                        <p>Revenues</p>
-                        <p>74,643, 000</p>
-                    </div>
-                </article>
-             </section>
-             <section class="events">
-                 <article class="event-calendar">
-                     <h1>Calender API</h1>
-                 </article>
-                 <article class="notice-board">
-                     <h2>Students Notice Board</h2>
-                     <small>January 23 2020</small>
-                     <p>Study Hours</p>
-                     <small>Go to your house</small>
-                     <p>Get Together</p>
-                     <!-- Plus Article -->
-                 </article>
-             </section>
-             <section class="charts">
-                 <article class="yearly">
-                     <h2>Yearly Revenue</h2>
-                     <small>2020</small>
-                 </article>
-                 <article class="monthly">
-                     <h2>Monthly Revenue</h2>
-                     <small>January 2020</small>
-                 </article>
-             </section>
-         </main>
-         <aside>
-             <article class="profile-display">
-                 <% if(user.img) { %>
-                    <img src="<%=user.image%>" alt="User's Image">
-                 <% } else { %>
-                    <img src="/img/user-1.jpg" alt="User's Image">
-                 <% } %>
-                 <p><%=user.role.charAt(0).toUpperCase() + user.role.slice(1)%></p>
-             </article>
-             <aricle class="upcoming">
-                 <h2>Upcoming Events</h2>
-                 <div>
-                    <h3>Board Meeting</h3>
-                    <small>2 <sup>nd</sup> January 2020</small>
-                 </div>
-                 <div>
-                    <h3>Board Meeting</h3>
-                    <small>2 <sup>nd</sup> January 2020</small>
-                 </div>
-                 <div>
-                    <h3>Get Together</h3>
-                    <small>23 <sup>rd</sup> January 2020</small>
-                 </div>
-             </aricle>
-         </aside>
+                </div>
+                <div class="right-header">
+                    <span class="link-nav icon">
+                        <i class="main-icon right-bar"></i>
+                    </span>
+                    <a href="" class="link-nav icon">
+                        <i class="main-icon power"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
     </body>
 </html>
 
