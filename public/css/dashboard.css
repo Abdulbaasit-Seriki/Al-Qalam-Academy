@@ -168,8 +168,113 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
 }
 .menu-center:before {
-    content:"\e905"
+    content: "\e905";
 }
 .phone-hide {
     display: none;
+}
+.settings:before {
+    content: "\e9c2";
+}
+.right-bar:before {
+ content: "\e908";
+}
+.power-icon::before {
+    content: "\e9b3";
+}
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    list-style: none;
+}
+.nav-tabs {
+    margin: 0 -0.75rem;
+    color: var(--gray-dark);
+    border-bottom: 1px solid var(--dark);
+    transition: all 0.5s ease-in-out;
+}
+.nav-tabs .nav-items {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 0;
+    padding: 0 0.75rem;
+    min-width: 2rem;
+    cursor: pointer;
+}
+.nav-items .link-nav {
+    transition: border-color 0.4s;
+    font-weight: 400;
+    border-bottom: 1px solid transparent;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+.nav-items .link-nav.active {
+    border-color: var(--white);
+    color: var(--white);
+    background: 0 0;
+}
+.nav-tabs-content {
+    margin-top: 1rem;
+}
+.nav-tabs-content.show {
+    display: none;
+}
+.nav-tabs-content {
+    display: block;
+}
+/* The right side Navigation For Mobile */
+.right-nav {
+    padding: 0 0 2.5rem 0;
+    height: 100vh;
+    width: 300px;
+    position: fixed;
+    right: -350px;
+    top: 0;
+    z-index: 999;
+    overflow-y: scroll;
+    background: var(--white);
+    box-shadow: -2px 2px 5px var(--gray-dark);
+    transition: all .9s ease-in-out;
+}
+.close-btn {
+    position: absolute;
+    right: 0;
+    padding: 1rem;
+    float: right;
+}
+
+/* The left side Navigation For Mobile */
+.school-name {
+    color: var(--white);
+}
+#class-menu.fade, #admin-menu.fade {
+    transition: opacity 0.2s linear;
+}
+#class-menu.fade:not(.show), #admin-menu.fade:not(.show) {
+    opacity: 0;
+}
+.left-nav .side-nav {
+    display: block;
+    padding-bottom: 2.5rem;
+    height: calc(100vh - 6.25rem);
+    overflow-y: auto;
+    margin-right: -0.9rem;
+}
+.list-menu {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.list-menu li {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    position: relative;
 }
