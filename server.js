@@ -76,7 +76,8 @@ const teachersRoute = require('./routes/teacher')
 
 // Mount Routers 
 app.use('/', indexRoutes)
-app.use('/auth', teachersAuthRoute, studentsAuthRoute)
+app.use('/auth', teachersAuthRoute)
+app.use('/auth', studentsAuthRoute)
 app.use('/class', classRoute)
 app.use('/students', studentsRoute)
 app.use('/teachers', teachersRoute)

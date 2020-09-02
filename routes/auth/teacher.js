@@ -65,8 +65,9 @@ router.get('/teachers/login', asyncErrorHandler( async (req, res, next) => {
 // description     	Login A Teacher
 // route			POST /auth/teacher/login 
 // Authorisation	Public
-router.post('/teachers/login', [validatePassword, checkUserExistence],
- handleValidationErrors('auth/users/login'),
+router.post('/teachers/login', 
+[validatePassword, checkUserExistence],  
+//  handleValidationErrors('auth/users/login'),
  asyncErrorHandler( async (req, res, next) => {
 	const teacher =  await Teacher.findOne({ displayName: req.body.displayName })
 	sendCookieToken(teacher, req)
@@ -111,7 +112,7 @@ router.get('/verifyemail/:token', asyncErrorHandler( async (req, res, next) => {
 	const decodedToken = jwt.verify(req.params.token, process.env.EMAIL_SECRET)
 	let teacher = Teacher.findById(decodedToken.id)
 
-	if (!teacher) {
+	if (!teacher) { 
 		return next(new ErrorResponse(
             `Sorry Something went wrong`, 400)
             .renderErrorPage(res)

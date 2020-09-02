@@ -41,7 +41,7 @@ p {
     margin: 0 0 0.8rem 0;
 }
 h1,h2,h3,h4,h5,h6 {
-    margin-top: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem 0;
 }
 a {
     color:#007bff;
@@ -100,7 +100,10 @@ h1, h2, h3, h4, h5, h6 {
 .h6, h6 {
  font-size: 1rem;
 }
-
+.font {
+    font-family: muli,sans-serif;
+    font-size: 14px;
+}
 .main-page {
     display: flex;
     flex-direction: column;
@@ -109,7 +112,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header {
-    background-color: linear-gradient(145deg, var(teal),var(--cyan));
+    background: linear-gradient(145deg,#00b5ad,#17a2b8);
     border-bottom: 1px solid var(--gray);
     display: flex;
     flex-direction: row;
@@ -120,6 +123,7 @@ h1, h2, h3, h4, h5, h6 {
     top: 0;
     left: 0;
     justify-content: space-between;
+    z-index: 100;
 }
 .cont {
     display: flex;
@@ -143,6 +147,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 1rem;
     padding: 0.625rem;
     display: block;
+    width: 100%;
 }
 .dropdown {
     display: flex;
@@ -191,8 +196,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .nav-tabs {
     margin: 0 -0.75rem;
-    color: var(--gray-dark);
-    border-bottom: 1px solid var(--dark);
+    color: #9aa0ac;
+    border-bottom: 1px solid hsla(0,0%,100%,.3);
     transition: all 0.5s ease-in-out;
 }
 .nav-tabs .nav-items {
@@ -213,8 +218,9 @@ h1, h2, h3, h4, h5, h6 {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
 }
-.nav-items .link-nav.active {
+.link-nav.active {
     border-color: var(--white);
+    border-bottom: 1px solid var(--white);
     color: var(--white);
     background: 0 0;
 }
@@ -258,6 +264,24 @@ h1, h2, h3, h4, h5, h6 {
 #class-menu.fade:not(.show), #admin-menu.fade:not(.show) {
     opacity: 0;
 }
+.left-nav {
+    background: linear-gradient(145deg,#00b5ad,#17a2b8);
+    transition: all 0.6s ease-in-out;
+    overflow-y: auto;
+    border-right: 1px solid #e6e9ed;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    padding: 20px 15px 20px 15px;
+}
+.left-nav.active {
+    z-index: 99;
+    left: 0;
+    top: 45px;
+    position: fixed;
+    padding: 20px;
+    width: 280px;
+}
 .left-nav .side-nav {
     display: block;
     padding-bottom: 2.5rem;
@@ -275,6 +299,81 @@ h1, h2, h3, h4, h5, h6 {
 .list-menu li {
     display: flex;
     flex-direction: column;
-    flex: 1 1;
+    flex: 1 2;
     position: relative;
+    justify-content: space-between;
+}
+
+.list-menu li a {
+    color: hsla(0,0%,100%,.9);
+    display: block;
+    position: relative;
+    padding: 10px 0;
+}
+
+.page {
+    padding: 3.5rem 0 0;
+    width: 100%;
+    position: relative;
+    background: var(--white);
+    left: 0;
+    transition: all 0.9s ease-in-out;
+    flex: 1 1 auto;
+}
+.page-top {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0.9rem;
+}
+.page-header {
+    display: block;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid #e8e9e9;
+}
+.page-header-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.input-div {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: stretch;
+    width: 100%;
+}
+.input {
+    margin: 0;
+    overflow: visible;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    background-color: var(--white);
+    padding: 0.3rem 0.7rem;
+    display: block;
+    height: auto;
+    position: relative;
+    width: 76%;
+    transition: all 0.5s ease-in-out;
+}
+.input-button {
+    display: flex;
+    margin-left: -1px;
+    font-size: 1rem;
+}
+.input-button button {
+    margin: 0;
+    border: 1px solid transparent;
+    padding: 0.3rem 0.7rem;
+    text-align: center;
+    font-weight: 400;
+    border-radius: 0.25rem;
+    line-height: 1.5;
+    display: inline-block;
+    color: #6c757d;
+    cursor: pointer;
+    position: relative;
+    height: 100%;
+    border-color: rgba(0,40,100,.12);
+    transition: all 0.5s ease-in-out;
 }
