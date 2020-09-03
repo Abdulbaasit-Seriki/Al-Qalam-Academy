@@ -162,30 +162,9 @@ h1, h2, h3, h4, h5, h6 {
     cursor: pointer;
     align-items: center;
 }
-.main-icon {
-    font-size: 1.25rem;
-    font-family: feather;
-    font-weight: 400;
-    font-feature-settings: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
+.icon i {
     cursor: pointer;
-}
-.menu-center:before {
-    content: "\e905";
-}
-.phone-hide {
-    display: none;
-}
-.settings:before {
-    content: "\e9c2";
-}
-.right-bar:before {
- content: "\e908";
-}
-.power-icon::before {
-    content: "\e9b3";
+    color: var(--white) !important;
 }
 
 .navbar {
@@ -469,4 +448,87 @@ h1, h2, h3, h4, h5, h6 {
 .menu-right {
     left: 0;
     right: auto;
+}
+
+.main-section {
+    background: var(--white);
+    padding: 0;
+    margin: 1.5rem auto;
+    width: 100%;
+}
+.main-section-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0.9rem;
+    margin: 0 -7.5px;
+}
+.main-section-content::after {
+    clear: both;
+    display: block;
+    content: "";
+}
+.content-card {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    padding: 0 7.5px;
+    position: relative;
+    flex: 0 0 50%;
+    max-width: calc(50% - 10px)
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: var(--white);
+    border: 1px solid #e6e9ed;
+    position: relative;
+    width: 100%;
+    border-radius: 0.5rem;
+    transition: all 0.5s ease-in-out;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    flex: 1 1 auto;
+    text-align: center;
+}
+.card .new-items {
+    color: var(--white);
+    right: auto;
+    left: 0;
+    top: 15px;
+    position: absolute;
+    height: 2rem;
+    width: 1.9rem;
+    text-align: center;
+    line-height: 1.5;
+    line-height: 32px;
+}
+.card .new-items::before {
+    position: absolute;
+    display: block;
+    width: 0;
+    content: "";
+    top: 0;
+    height: 32px;
+    right: -8px;
+    border-style: solid;
+    border-width: 16px 8px 16px 0;
+}
+.card .new-items.green {
+    background: #21ba45;
+}
+.card .new-items.orange {
+    background: #f2711c;
+}
+.card a {
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    color: #4d5052;
+}
+.card i {
+    display: block;
+    font-size: 40px;
+    color: var(--gray);
+    margin-bottom: 10px;
 }
