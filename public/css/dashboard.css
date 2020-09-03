@@ -200,7 +200,7 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid hsla(0,0%,100%,.3);
     transition: all 0.5s ease-in-out;
 }
-.nav-tabs .nav-items {
+.nav-item {
     display: flex;
     align-items: center;
     position: relative;
@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6 {
     min-width: 2rem;
     cursor: pointer;
 }
-.nav-items .link-nav {
+.nav-item .link-nav {
     transition: border-color 0.4s;
     font-weight: 400;
     border-bottom: 1px solid transparent;
@@ -329,6 +329,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     padding: 1.25rem 0;
     border-bottom: 1px solid #e8e9e9;
+    width: 100%;
 }
 .page-header-left {
     display: flex;
@@ -353,7 +354,6 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
     height: auto;
     position: relative;
-    width: 76%;
     transition: all 0.5s ease-in-out;
 }
 .input-button {
@@ -376,4 +376,97 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     border-color: rgba(0,40,100,.12);
     transition: all 0.5s ease-in-out;
+}
+
+.page-header-right {
+    display: flex;
+    /* margin-top: 0.9rem; */
+    align-items: center;
+    justify-content: space-between;
+}
+.nav-dropdown {
+    display: inline-flex;
+    position: relative;
+    margin: 1rem 0 0 0;
+}
+.nav-dropdown-toggle {
+    white-space: nowrap;
+    cursor: pointer;
+}
+.nav-dropdown-toggle::after{
+    display: inline-block;
+    margin-left: 0.25rem;
+    content: "";
+    border-top: 0.3rem solid;
+    border-right: 0.3rem solid transparent;
+    border-bottom: 0;
+    border-left: 0.3rem solid transparent;
+}
+.nav-dropdown .link-nav {
+    border-radius: 0.25rem;
+    background: 0 0;
+    padding: 0.9rem 0 0 0;
+    color: #666a6d;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    padding: 0.5rem 0;
+    margin: 0.12rem 0;
+    color: var(--dark);
+    list-style: none;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 20px 0 var(--dark);
+    min-width: 12rem;
+    border: 0;
+}
+.dropdown-menu .item {
+    font-size: 14px;
+    color: var(--gray-dark);
+    padding: 0.2rem 0.625rem;
+    margin: 0 0.625rem;
+    display: block;
+    clear: both;
+    font-weight: 400;
+    background-color: transparent;
+    border: 0;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+.avatar-cont {
+    padding: 0 0.75rem;
+    font-size: 0.9rem;
+    line-height: 2rem;
+    display: inline-block;
+    height: 2rem;
+    color: var(--gray);
+    font-weight: 500;
+    border-radius: 1rem;
+    transition: all 0.5s ease-in-out;
+    margin-left: 1rem;
+    background-color: #e8e9e9;
+    cursor: pointer;
+}
+.avatar-cont .avatar {
+    border-radius: 50%;
+    float: left;
+    height: 2rem;
+    width: 2rem;
+    margin: 0 0.5rem 0 -0.75rem;
+    color: #4d5052;
+    font-weight: 600;
+    background: #808488 no-repeat 50%/cover;
+    position: relative;
+    font-size: 0.9rem;
+    text-align: center;
+
+}
+.menu-right {
+    left: 0;
+    right: auto;
 }
