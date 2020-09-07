@@ -1,0 +1,76 @@
+/* The left side Navigation For Mobile */
+.school-name {
+    color: var(--white);
+}
+#class-menu.fade, #admin-menu.fade {
+    transition: opacity 0.2s linear;
+}
+#class-menu.fade:not(.show), #admin-menu.fade:not(.show) {
+    opacity: 0;
+}
+.left-nav {
+    background: linear-gradient(145deg,#00b5ad,#17a2b8);
+    transition: all 0.6s ease-in-out;
+    overflow-y: auto;
+    border-right: 1px solid #e6e9ed;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    padding: 20px 15px 20px 15px;
+}
+.left-nav.active {
+    z-index: 99;
+    left: 0;
+    top: 45px;
+    position: fixed;
+    padding: 20px;
+    width: 280px;
+}
+.left-nav .side-nav {
+    display: block;
+    padding-bottom: 2.5rem;
+    height: calc(100vh - 6.25rem);
+    overflow-y: auto;
+    margin-right: -0.9rem;
+}
+.list-menu {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.list-menu li {
+    display: flex;
+    flex-direction: column;
+    flex: 1 2;
+    position: relative;
+    justify-content: space-between;
+}
+
+.list-menu li a {
+    color: hsla(0,0%,100%,.9);
+    display: block;
+    position: relative;
+    padding: 10px 0;
+}
+/* Media Queries */
+/* For Laptops and Higher */
+@media only screen and (min-width: 768px) {
+    .left-nav {
+        padding: 25px 15px 20px 75px;
+        width: 280px;
+        z-index: 2000;
+        left: -280px;
+    }
+}
+
+/* Media Queries */
+/* For Laptops and Higher */
+@media only screen and (min-width: 992px) {
+    .left-nav {
+        left: 0;
+        width: 280px;
+        z-index: 1000;
+    }
+}
