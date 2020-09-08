@@ -6,9 +6,11 @@
         <title>Dashboard</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/styles.css">
         <link rel="stylesheet" href="/css/navbar.css">
         <link rel="stylesheet" href="/css/leftsidebar.css">
         <link rel="stylesheet" href="/css/pagetop.css">
+        <link rel="stylesheet" href="/css/footer.css">
         <link href=/css/dashboard.css" rel="stylesheet">
 	</head>
 	 <body id="main-page" class="font">
@@ -104,21 +106,7 @@
                     </div>
                 </div>
             </article>
-            <footer>
-                <div class="footer">
-                    <div class="copyright">
-                        Copyright © 2020 
-                        <a href="">Abdulbaasit</a>
-                    </div>
-                    <div class="dev-contact">
-                        <ul>
-                            <li class="github">Abdulbaasit</li>
-                            <li class="hire">Hire me</li>
-                            <li class="link">Bla bla</li>
-                        </ul>
-                    </div>
-                </div>
-            </footer>
+            <%-include('./partials/footer.ejs')%>
         </main>
     </body>
 </html>

@@ -1,0 +1,45 @@
+footer {
+    font-size: 0.9rem;
+    padding: 1.25rem 0;
+    color: #9aa0ac;
+    display: block;
+}
+.footer {
+    width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+.copyright {
+    padding: 0 7.5px;
+    position: relative;
+    width: 100%;
+}
+footer a {
+    color: #6e7687;
+    text-decoration: none;
+}
+.dev-contact {
+    margin-top: 1rem;
+    padding: 0 7.5px;
+    position: relative;
+    width: 100%;
+}
+.dev-contact ul {
+    list-style: none;
+    padding: 0;
+}
+.dev-contact ul li {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+/* Media Queries */
+/* For Tablets */
+@media only screen and (min-width: 768px) {
+    .copyright, .dev-contact {
+        display: inline-block;
+    }
+}

@@ -1,5 +1,3 @@
 node_modules/
 config/config.env
-demo_dashboard.css
-dashboard.html
-test.css
+dashboard_test/

@@ -36,11 +36,6 @@
     display: block;
     width: 100%;
 }
-.dropdown {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
 .link-nav {
     color: hsla(0,0%,100%,.9);
     padding: 0.75rem;
@@ -79,10 +74,6 @@
         padding: 0;
         width: 100%;
         max-width: 720px;
-    }
-    .dropdown {
-        display: inline-block;
-        position: relative;
     }
     .right-header, .left-header {
         flex-direction: column;

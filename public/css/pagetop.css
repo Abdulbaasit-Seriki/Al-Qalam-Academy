@@ -153,4 +153,23 @@
     .page-top {
         padding: 0;
     }
+    .page-header-right {
+        margin-top: 0.9rem;
+        align-items: end;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .page-header-right {
+        margin: 0;
+        align-items: center;
+    }
+    #toggler {
+        display: inline-block;
+    }
 }
