@@ -15,18 +15,6 @@
     position: relative;
     width: 100%;
 }
-.card {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    background-color: var(--white);
-    border: 1px solid rgba(0,0,0,.125);;
-    width: 100%;
-    position: relative;
-    border-color: #e6e9ed;
-    border-radius: 0.55rem;
-    margin-bottom: 0.9rem;
-}
 .card-content {
     padding: 1.2rem;
     flex: 1 1 auto;
@@ -104,35 +92,10 @@
     padding: 0 0.5rem;
     position: relative;
     width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
 }
-.form-control {
-    margin-bottom: 1rem;
-}
-.form-control label {
-    display: inline-block;
-    margin-bottom: 0.5rem;
-}
-.form-control .input, select {
-    display: block;
-    width: 100%;
-    height: auto;
-    border: 1px solid #ced4da;
-    font-size: 14px;
-    background-color: var(--white);
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    padding: 0.37rem 0.75rem;
-    border-radius: 0.25rem;
-    transition: 0.2s all ease-in-out;
-}
-.form-control .input:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(0,123,255,.25);
-}
+
 .file-selector .form-control {
     margin: 0.5rem 0 1rem 0;
 }
@@ -178,5 +141,24 @@ button {
         width: 100%;
         padding: 0 0.9rem;
         margin: auto 0;
+        background-color: black;
+    }
+    .card-body .row article {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .card-body .row article:nth-of-type(3),
+    .card-body .row article:nth-of-type(4),
+    .card-body .row article:nth-of-type(5),
+    .card-body .row article:nth-of-type(6) {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    .card-body .row article:nth-of-type(9) {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .file-selector .picker {
+        min-height: 270px;
     }
 }
